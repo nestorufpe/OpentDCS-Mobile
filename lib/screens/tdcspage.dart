@@ -12,6 +12,7 @@ class TDCSPage extends StatelessWidget {
           child: Column(
         children: [
           Expanded(
+            flex: 1,
             child: Row(
               children: [
                 Expanded(
@@ -30,6 +31,7 @@ class TDCSPage extends StatelessWidget {
             ),
           ),
           Expanded(
+            flex: 2,
             child: Row(
               children: [
                 Expanded(
@@ -41,6 +43,7 @@ class TDCSPage extends StatelessWidget {
             ),
           ),
           Expanded(
+            flex: 1,
             child: Row(
               children: [
                 Expanded(flex: 1, child: ContainerNeuValues(context)),

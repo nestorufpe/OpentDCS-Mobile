@@ -54,7 +54,7 @@ Widget ContainerNeu(BuildContext context) {
       shape: NeumorphicShape.flat,
       boxShape: NeumorphicBoxShape.circle(),
     ),
-    padding: EdgeInsets.all(18.0),
+    padding: EdgeInsets.all(12.0),
     child: CustomSeek(context),
   );
 }
@@ -63,90 +63,86 @@ Widget ContainerNeuValues(BuildContext context) {
   return Row(
     children: [
       Expanded(
+        flex: 1,
         child: Neumorphic(
-          margin: EdgeInsets.all(5),
+          margin: EdgeInsets.symmetric(horizontal: 5),
+          padding: EdgeInsets.symmetric(vertical: 8),
           style: NeumorphicStyle(
             color: Colors.white,
             shape: NeumorphicShape.flat,
             boxShape: NeumorphicBoxShape.roundRect(
                 BorderRadius.all(Radius.circular(12))),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    Text(
-                      "Intesidade",
-                      style: TextStyle(fontSize: 14),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "2mA",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Icon(
-                      Icons.circle,
-                      size: 12,
-                      color: Colors.green,
-                    )
-                  ],
-                ),
-              ],
-            ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                children: [
+                  Text(
+                    "Intesidade",
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "2mA",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Icon(
+                    Icons.circle,
+                    size: 12,
+                    color: Colors.green,
+                  )
+                ],
+              ),
+            ],
           ),
         ),
       ),
       Expanded(
+        flex: 1,
         child: Neumorphic(
-          margin: EdgeInsets.all(5),
+          margin: EdgeInsets.symmetric(horizontal: 5),
+          padding: EdgeInsets.symmetric(vertical: 8),
           style: NeumorphicStyle(
             color: Colors.white,
             shape: NeumorphicShape.flat,
             boxShape: NeumorphicBoxShape.roundRect(
                 BorderRadius.all(Radius.circular(12))),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    Text(
-                      "Impedância",
-                      style: TextStyle(fontSize: 14),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "9 kΩ",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Icon(
-                      Icons.circle,
-                      size: 12,
-                      color: Colors.red,
-                    )
-                  ],
-                ),
-              ],
-            ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                children: [
+                  Text(
+                    "Impedância",
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "9 kΩ",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Icon(
+                    Icons.circle,
+                    size: 12,
+                    color: Colors.red,
+                  )
+                ],
+              ),
+            ],
           ),
         ),
       ),

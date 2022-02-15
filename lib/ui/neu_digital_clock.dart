@@ -8,7 +8,7 @@ class NeuDigitalClock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 145,
+      height: 70,
       decoration: BoxDecoration(
         color: Color.fromRGBO(217, 230, 243, 1),
         borderRadius: BorderRadius.circular(15),
@@ -106,13 +106,13 @@ class DigitalClock extends StatelessWidget {
 
     return [
       DigitalNumberWithBG(
-        height: height * 0.35,
+        height: height * 0.45,
         value: tenDigit,
         padLeft: 0,
         color: Colors.red,
       ),
       DigitalNumberWithBG(
-        height: height * 0.35,
+        height: height * 0.45,
         value: digit,
         padLeft: 0,
         color: Colors.red,

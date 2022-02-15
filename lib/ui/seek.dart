@@ -30,7 +30,6 @@ class HexColor extends Color {
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }
 
-/// CORRETO
 final customWidth01 =
     CustomSliderWidths(trackWidth: 1, progressBarWidth: 15, shadowWidth: 50);
 final customColors01 = CustomSliderColors(
