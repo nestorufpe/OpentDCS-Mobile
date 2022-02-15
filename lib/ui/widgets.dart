@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:opentdcsapp/ui/seek.dart';
 import 'package:opentdcsapp/utils/custom_icons.dart';
 
@@ -80,7 +81,7 @@ Widget ContainerNeuValues(BuildContext context) {
               Column(
                 children: [
                   Text(
-                    "Intesidade",
+                    "I",
                     style: TextStyle(fontSize: 14),
                   ),
                   SizedBox(
@@ -122,7 +123,7 @@ Widget ContainerNeuValues(BuildContext context) {
               Column(
                 children: [
                   Text(
-                    "Impedância",
+                    "R",
                     style: TextStyle(fontSize: 14),
                   ),
                   SizedBox(
@@ -139,6 +140,48 @@ Widget ContainerNeuValues(BuildContext context) {
                     Icons.circle,
                     size: 12,
                     color: Colors.red,
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+      Expanded(
+        flex: 1,
+        child: Neumorphic(
+          margin: EdgeInsets.symmetric(horizontal: 5),
+          padding: EdgeInsets.symmetric(vertical: 8),
+          style: NeumorphicStyle(
+            color: Colors.white,
+            shape: NeumorphicShape.flat,
+            boxShape: NeumorphicBoxShape.roundRect(
+                BorderRadius.all(Radius.circular(12))),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                children: [
+                  Text(
+                    "Sham",
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "B",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Icon(
+                    MdiIcons.humanWhiteCane,
+                    size: 12,
+                    color: Colors.black,
                   )
                 ],
               ),
