@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
+import 'package:get/get.dart';
 import 'package:opentdcsapp/screens/samplepage.dart';
 import 'package:opentdcsapp/utils/custom_icons.dart';
 import 'screens/tdcspage.dart';
 import 'screens/eegpage.dart';
 import 'screens/samplepage.dart';
+import 'utils/routes.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,14 +15,15 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
-    );
+    return GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        // home: MyHomePage(),
+        initialRoute: '/',
+        getPages: Routes.routes);
   }
 }
 

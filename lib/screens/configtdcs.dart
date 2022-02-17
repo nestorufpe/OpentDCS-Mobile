@@ -76,18 +76,18 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                   children: <Widget>[
                     Container(
                         alignment: AlignmentDirectional.centerStart,
-                        child: Text("Add Food",
+                        child: Text("Pressione para ver as opções",
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.black38,
+                                fontWeight: FontWeight.bold))),
+                    Container(
+                        alignment: AlignmentDirectional.centerStart,
+                        child: Text("Configuração",
                             style: TextStyle(
                                 fontSize: 26,
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold))),
-                    Container(
-                        alignment: AlignmentDirectional.centerStart,
-                        child: Text("Journal",
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.black38,
-                                fontWeight: FontWeight.bold)))
                   ])),
         ),
         preferredSize: Size.fromHeight(90));

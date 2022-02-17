@@ -10,8 +10,7 @@ Widget CircleButton(BuildContext context) {
   return Center(
     child: NeumorphicButton(
       onPressed: () {
-        Get.to(ConfigTdcs(),
-            transition: Transition.rightToLeft, duration: Duration(seconds: 5));
+        Get.to(ConfigTdcs(), transition: Transition.rightToLeft);
       },
       style: NeumorphicStyle(
           shape: NeumorphicShape.flat,
