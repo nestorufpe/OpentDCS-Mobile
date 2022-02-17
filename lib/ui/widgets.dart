@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:opentdcsapp/screens/configtdcs.dart';
 import 'package:opentdcsapp/ui/seek.dart';
 import 'package:opentdcsapp/utils/custom_icons.dart';
 
@@ -8,7 +10,8 @@ Widget CircleButton(BuildContext context) {
   return Center(
     child: NeumorphicButton(
       onPressed: () {
-        print("click");
+        Get.to(ConfigTdcs(),
+            transition: Transition.rightToLeft, duration: Duration(seconds: 5));
       },
       style: NeumorphicStyle(
           shape: NeumorphicShape.flat,
