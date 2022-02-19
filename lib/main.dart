@@ -38,6 +38,18 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Column(
+          children: [
+            Text("Fco José"),
+            Text(
+              "Parkison",
+              style: TextStyle(fontSize: 12, color: Colors.white54),
+            ),
+          ],
+        ),
+      ),
       body: Container(
         decoration: BoxDecoration(color: Colors.white),
         child: Center(

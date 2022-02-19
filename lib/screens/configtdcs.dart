@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:direct_select_flutter/direct_select_container.dart';
 import 'package:direct_select_flutter/direct_select_item.dart';
 import 'package:direct_select_flutter/direct_select_list.dart';
@@ -233,7 +234,18 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                             child: RaisedButton(
                           child: const Text('\u{2795} NOVO PROTOCOLO SHAM',
                               style: TextStyle(color: Colors.blueAccent)),
-                          onPressed: () {},
+                          onPressed: () async {
+                            final text = await showTextInputDialog(
+                              context: context,
+                              cancelLabel: "CANCELAR",
+                              textFields: const [
+                                DialogTextField(
+                                  hintText: 'nome do protocolo',
+                                ),
+                              ],
+                              title: 'Protocolo',
+                            );
+                          },
                         ))
                       ]),
                     ],
@@ -360,49 +372,51 @@ class MealSelector extends StatelessWidget {
   }
 }
 
-Widget _getFoodContainsRow() {
-  final cardSize = 80.0;
-  final cardColor = Colors.blueGrey[100];
-  return Padding(
-    padding: EdgeInsets.only(left: 8, right: 8),
-    child: Row(
-      children: <Widget>[
-        Expanded(
-          child: Container(
-              child: Center(child: Text("226")),
-              height: cardSize,
-              margin: EdgeInsets.only(right: 3),
-              decoration: BoxDecoration(
-                  color: cardColor,
-                  borderRadius: BorderRadius.only(
-                      topLeft: const Radius.circular(10.0),
-                      bottomLeft: const Radius.circular(10.0)))),
-        ),
-        Expanded(
-          child: Container(
-              child: Center(child: Text("41")),
-              height: cardSize,
-              margin: EdgeInsets.only(right: 3),
-              decoration: BoxDecoration(color: cardColor)),
-        ),
-        Expanded(
-          child: Container(
-              child: Center(child: Text("0")),
-              height: cardSize,
-              margin: EdgeInsets.only(right: 3),
-              decoration: BoxDecoration(color: cardColor)),
-        ),
-        Expanded(
-          child: Container(
-              child: Center(child: Text("4.5")),
-              height: cardSize,
-              decoration: BoxDecoration(
-                  color: cardColor,
-                  borderRadius: BorderRadius.only(
-                      topRight: const Radius.circular(10.0),
-                      bottomRight: const Radius.circular(10.0)))),
-        ),
-      ],
-    ),
-  );
-}
+// Widget _getFoodContainsRow() {
+//   final cardSize = 80.0;
+//   final cardColor = Colors.blueGrey[100];
+//   return Padding(
+//     padding: EdgeInsets.only(left: 8, right: 8),
+//     child: Row(
+//       children: <Widget>[
+//         Expanded(
+//           child: Container(
+//               child: Center(child: Text("226")),
+//               height: cardSize,
+//               margin: EdgeInsets.only(right: 3),
+//               decoration: BoxDecoration(
+//                   color: cardColor,
+//                   borderRadius: BorderRadius.only(
+//                       topLeft: const Radius.circular(10.0),
+//                       bottomLeft: const Radius.circular(10.0)))),
+//         ),
+//         Expanded(
+//           child: Container(
+//               child: Center(child: Text("41")),
+//               height: cardSize,
+//               margin: EdgeInsets.only(right: 3),
+//               decoration: BoxDecoration(color: cardColor)),
+//         ),
+//         Expanded(
+//           child: Container(
+//               child: Center(child: Text("0")),
+//               height: cardSize,
+//               margin: EdgeInsets.only(right: 3),
+//               decoration: BoxDecoration(color: cardColor)),
+//         ),
+//         Expanded(
+//           child: Container(
+//               child: Center(child: Text("4.5")),
+//               height: cardSize,
+//               decoration: BoxDecoration(
+//                   color: cardColor,
+//                   borderRadius: BorderRadius.only(
+//                       topRight: const Radius.circular(10.0),
+//                       bottomRight: const Radius.circular(10.0)))),
+//         ),
+//       ],
+//     ),
+//   );
+// }
+
+
