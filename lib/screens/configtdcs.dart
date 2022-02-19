@@ -10,17 +10,15 @@ class ConfigTdcs extends StatefulWidget {
   _ConfigTdcsState createState() => _ConfigTdcsState();
 }
 
-List<String> _meals = [
-  "Breakfast1",
-  "Breakfast2",
-  "Lunch1",
-  "Lunch2",
-  "Dinner1",
-  "Dinner2",
+List<String> _intensity = [
+  "0.5 mA",
+  "1.0 mA",
+  "1.5 mA",
+  "2.0 mA",
 ];
 
 class _ConfigTdcsState extends State<ConfigTdcs> {
-  List<String> _food = ["Chicken", "Pork", "Vegetables", "Cheese", "Bread"];
+  List<String> _time = ["10 min", "15 min", "20 min", "30 min", "40 min"];
   List<String> _foodVariants = [
     "Chicken grilled",
     "Pork grilled",
@@ -28,17 +26,20 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
     "Cheese as is",
     "Bread tasty"
   ];
-  List<String> _portionSize = [
-    "Small portion",
-    "Medium portion",
-    "Large portion",
-    "Huge portion"
+  List<String> _protocols = [
+    "ECA cefaleia",
+    "Low back pain",
+    "Depressão",
+    "Parkison"
   ];
-  List<String> _numbers = ["1.0", "2.0", "3.0", "4.0", "5.0", "6.0", "7.0"];
+  List<String> _sham = ["NÃO", "SIM"];
+  List<String> _mode = ["Modo A", "Modo B"];
 
-  int selectedFoodVariants = 0;
-  int selectedPortionCounts = 0;
-  int selectedPortionSize = 0;
+  int selectedCurrentsVariants = 0;
+  int selectedTimeCounts = 0;
+  int selectedSham = 0;
+  int selectedProtocol = 0;
+  int selectedMode = 0;
 
   DirectSelectItem<String> getDropDownMenuItem(String value) {
     return DirectSelectItem<String>(
@@ -76,7 +77,8 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                   children: <Widget>[
                     Container(
                         alignment: AlignmentDirectional.centerStart,
-                        child: Text("Pressione para ver as opções",
+                        child: Text(
+                            "Pressione para ver as opções de configuração para tDCs",
                             style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.black38,
@@ -103,85 +105,24 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
               mainAxisSize: MainAxisSize.min,
               verticalDirection: VerticalDirection.down,
               children: <Widget>[
-                SizedBox(height: 20.0),
-                Container(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    alignment: AlignmentDirectional.centerStart,
-                    margin: EdgeInsets.only(left: 4),
-                    child: Column(
-                      children: <Widget>[
-                        Text(_foodVariants[selectedFoodVariants],
-                            style: TextStyle(
-                                fontSize: 26, fontWeight: FontWeight.bold))
-                      ],
-                    )),
-                Container(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    alignment: AlignmentDirectional.centerStart,
-                    margin: EdgeInsets.only(left: 4),
-                    child: Column(
-                      children: <Widget>[
-                        Text(_numbers[selectedPortionCounts] +
-                            "   " +
-                            _portionSize[selectedPortionSize])
-                      ],
-                    )),
-                SizedBox(height: 5.0),
-                _getFoodContainsRow(),
-                SizedBox(height: 20.0),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: <Widget>[
-                      MealSelector(data: _meals, label: "To which meal?"),
-                      SizedBox(height: 20.0),
                       MealSelector(
-                          data: _food, label: "Search our database by name"),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
-                        child: Container(
-                          decoration: _getShadowDecoration(),
-                          child: Card(
-                              child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              Expanded(
-                                  child: Padding(
-                                      child: DirectSelectList<String>(
-                                          values: _foodVariants,
-                                          onUserTappedListener: () {
-                                            _showScaffold();
-                                          },
-                                          defaultItemIndex:
-                                              selectedFoodVariants,
-                                          itemBuilder: (String value) =>
-                                              getDropDownMenuItem(value),
-                                          focusedItemDecoration:
-                                              _getDslDecoration(),
-                                          onItemSelectedListener:
-                                              (item, index, context) {
-                                            setState(() {
-                                              selectedFoodVariants = index;
-                                            });
-                                          }),
-                                      padding: EdgeInsets.only(left: 22))),
-                              Padding(
-                                padding: EdgeInsets.only(right: 8),
-                                child: _getDropdownIcon(),
-                              )
-                            ],
-                          )),
-                        ),
-                      ),
+                          data: _intensity, label: "Qual a intensidade?"),
+                      SizedBox(height: 20.0),
+                      MealSelector(data: _time, label: "Qual a duração?"),
                       SizedBox(height: 15.0),
                       Container(
                           padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
                           margin: EdgeInsets.only(left: 4),
                           alignment: AlignmentDirectional.centerStart,
-                          child: Text("How Much?")),
+                          child: Text("Placebo? (Escolha protocolo e modo)")),
                       Row(children: <Widget>[
+                        //Sham
                         Expanded(
-                            flex: 2,
+                            flex: 1,
                             child: Container(
                               decoration: _getShadowDecoration(),
                               child: Card(
@@ -195,9 +136,8 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                                               onUserTappedListener: () {
                                                 _showScaffold();
                                               },
-                                              values: _numbers,
-                                              defaultItemIndex:
-                                                  selectedPortionCounts,
+                                              values: _sham,
+                                              defaultItemIndex: selectedSham,
                                               itemBuilder: (String value) =>
                                                   getDropDownMenuItem(value),
                                               focusedItemDecoration:
@@ -205,15 +145,17 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                                               onItemSelectedListener:
                                                   (item, index, context) {
                                                 setState(() {
-                                                  selectedPortionCounts = index;
+                                                  selectedSham = index;
                                                 });
                                               }),
-                                          padding: EdgeInsets.only(left: 22))),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 8))),
                                 ],
                               )),
                             )),
+                        //Protocolo
                         Expanded(
-                            flex: 8,
+                            flex: 2,
                             child: Container(
                               decoration: _getShadowDecoration(),
                               child: Card(
@@ -223,9 +165,12 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                                   Expanded(
                                       child: Padding(
                                           child: DirectSelectList<String>(
-                                              values: _portionSize,
+                                              values: _protocols,
+                                              onUserTappedListener: () {
+                                                _showScaffold();
+                                              },
                                               defaultItemIndex:
-                                                  selectedPortionSize,
+                                                  selectedProtocol,
                                               itemBuilder: (String value) =>
                                                   getDropDownMenuItem(value),
                                               focusedItemDecoration:
@@ -233,7 +178,42 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                                               onItemSelectedListener:
                                                   (item, index, context) {
                                                 setState(() {
-                                                  selectedPortionSize = index;
+                                                  selectedProtocol = index;
+                                                });
+                                              }),
+                                          padding: EdgeInsets.only(left: 22))),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 8),
+                                    child: _getDropdownIcon(),
+                                  )
+                                ],
+                              )),
+                            )),
+                        //Modo
+                        Expanded(
+                            flex: 2,
+                            child: Container(
+                              decoration: _getShadowDecoration(),
+                              child: Card(
+                                  child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: <Widget>[
+                                  Expanded(
+                                      child: Padding(
+                                          child: DirectSelectList<String>(
+                                              values: _mode,
+                                              onUserTappedListener: () {
+                                                _showScaffold();
+                                              },
+                                              defaultItemIndex: selectedMode,
+                                              itemBuilder: (String value) =>
+                                                  getDropDownMenuItem(value),
+                                              focusedItemDecoration:
+                                                  _getDslDecoration(),
+                                              onItemSelectedListener:
+                                                  (item, index, context) {
+                                                setState(() {
+                                                  selectedMode = index;
                                                 });
                                               }),
                                           padding: EdgeInsets.only(left: 22))),
@@ -245,10 +225,13 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                               )),
                             )),
                       ]),
+                      SizedBox(
+                        height: 12,
+                      ),
                       Row(children: <Widget>[
                         Expanded(
                             child: RaisedButton(
-                          child: const Text('ADD TO JOURNAL',
+                          child: const Text('\u{2795} NOVO PROTOCOLO SHAM',
                               style: TextStyle(color: Colors.blueAccent)),
                           onPressed: () {},
                         ))
@@ -265,7 +248,8 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
   }
 
   void _showScaffold() {
-    final snackBar = SnackBar(content: Text('Hold and drag instead of tap'));
+    final snackBar =
+        SnackBar(content: Text('Pressione e segure para ver as opções'));
     scaffoldKey.currentState?.showSnackBar(snackBar);
   }
 
@@ -319,6 +303,7 @@ class MealSelector extends StatelessWidget {
                         child: DirectSelectList<String>(
                           values: data,
                           defaultItemIndex: 0,
+                          onUserTappedListener: () {},
                           itemBuilder: (String value) =>
                               getDropDownMenuItem(value),
                           focusedItemDecoration: _getDslDecoration(),
