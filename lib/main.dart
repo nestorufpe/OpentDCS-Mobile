@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:opentdcsapp/screens/samplepage.dart';
 import 'package:opentdcsapp/utils/custom_icons.dart';
@@ -10,20 +11,39 @@ import 'utils/routes.dart';
 
 void main() {
   runApp(MyApp());
+  configLoading();
+}
+
+void configLoading() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+    ..loadingStyle = EasyLoadingStyle.dark
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..progressColor = Colors.yellow
+    ..backgroundColor = Colors.green
+    ..indicatorColor = Colors.yellow
+    ..textColor = Colors.yellow
+    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..userInteractions = true
+    ..dismissOnTap = false;
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        // home: MyHomePage(),
-        initialRoute: '/',
-        getPages: Routes.routes);
+      debugShowCheckedModeBanner: false,
+      title: 'OpentDCs App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      // home: MyHomePage(),
+      initialRoute: '/',
+      getPages: Routes.routes,
+      builder: EasyLoading.init(),
+    );
   }
 }
 

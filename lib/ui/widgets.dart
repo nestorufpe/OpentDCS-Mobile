@@ -1,4 +1,8 @@
+import 'dart:async';
+
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -21,7 +25,27 @@ Widget CircleButton(BuildContext context) {
         child: Icon(
           Icons.settings,
           color: Colors.black,
-          size: 42,
+          size: 44,
+        ),
+      ),
+    ),
+  );
+}
+
+Widget CircleButtonRts(BuildContext context) {
+  return Center(
+    child: NeumorphicButton(
+      onPressed: () {},
+      style: NeumorphicStyle(
+          shape: NeumorphicShape.flat,
+          boxShape: NeumorphicBoxShape.circle(),
+          color: Colors.white),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Icon(
+          MdiIcons.reload,
+          color: Colors.black,
+          size: 24,
         ),
       ),
     ),
@@ -43,7 +67,59 @@ Widget CircleBtnPlay(BuildContext context) {
         child: Icon(
           Icons.play_arrow,
           color: Colors.black,
-          size: 64,
+          size: 44,
+        ),
+      ),
+    ),
+  );
+}
+
+Widget CircleBtnPlayEeg(BuildContext context, double progress, Timer? timer) {
+  return Center(
+    child: NeumorphicButton(
+      onPressed: () async {
+        final text = await showTextInputDialog(
+          context: context,
+          cancelLabel: "CANCELAR",
+          okLabel: "GRAVAR",
+          textFields: const [
+            DialogTextField(
+              hintText: 'Duração em minutos',
+              keyboardType: TextInputType.number,
+              suffixText: " min",
+            ),
+          ],
+          title: 'Duração',
+        );
+
+        // int duration = int.parse(text?.first ?? '0');
+
+        progress = 0;
+        timer?.cancel();
+        timer =
+            await Timer.periodic(Duration(milliseconds: 100), (Timer mtimer) {
+          EasyLoading.showProgress(progress,
+              maskType: EasyLoadingMaskType.black,
+              status: '${(progress * 100).toStringAsFixed(0)}%');
+          progress += 0.03;
+
+          if (progress >= 1) {
+            timer?.cancel();
+            EasyLoading.dismiss();
+            text == "0";
+          }
+        });
+      },
+      style: NeumorphicStyle(
+          shape: NeumorphicShape.flat,
+          boxShape: NeumorphicBoxShape.circle(),
+          color: Colors.white),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Icon(
+          Icons.play_arrow,
+          color: Colors.black,
+          size: 44,
         ),
       ),
     ),
