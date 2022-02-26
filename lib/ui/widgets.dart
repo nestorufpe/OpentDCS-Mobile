@@ -7,6 +7,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:opentdcsapp/screens/configtdcs.dart';
+import 'package:opentdcsapp/screens/eegresults.dart';
 import 'package:opentdcsapp/ui/seek.dart';
 import 'package:opentdcsapp/utils/custom_icons.dart';
 
@@ -107,6 +108,7 @@ Widget CircleBtnPlayEeg(BuildContext context, double progress, Timer? timer) {
             timer?.cancel();
             EasyLoading.dismiss();
             text == "0";
+            Get.to(EegResults());
           }
         });
       },
