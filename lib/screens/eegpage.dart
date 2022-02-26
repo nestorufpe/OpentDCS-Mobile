@@ -25,7 +25,7 @@ class _EEGPageState extends State<EEGPage> {
       title: 'Ch3',
     ),
     GridListItems(color: Colors.green, title: 'Ch4'),
-    GridListItems(color: Colors.green, title: 'Ch5'),
+    GridListItems(color: Colors.red, title: 'Ch5'),
     GridListItems(color: Colors.green, title: 'Ch6'),
     GridListItems(color: Colors.green, title: 'Ch7'),
     GridListItems(color: Colors.green, title: 'Ch8'),
@@ -36,7 +36,6 @@ class _EEGPageState extends State<EEGPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _progress = 0;
     EasyLoading.addStatusCallback((status) {
@@ -149,7 +148,12 @@ class _EEGPageState extends State<EEGPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    CircleButtonRts(context),
+                    CircleButtonRts(context, (){
+                      setState(() {
+                        items[2] = GridListItems(color: Colors.green, title: "Ch3");
+                        items[4] = GridListItems(color: Colors.green, title: "Ch5");
+                      });
+                    }),
                     CircleBtnPlayEeg(context, _progress, _timer),
                   ],
                 ),

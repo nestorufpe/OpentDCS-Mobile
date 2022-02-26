@@ -11,6 +11,8 @@ import 'package:opentdcsapp/screens/eegresults.dart';
 import 'package:opentdcsapp/ui/seek.dart';
 import 'package:opentdcsapp/utils/custom_icons.dart';
 
+import '../screens/eegpage.dart';
+
 Widget CircleButton(BuildContext context) {
   return Center(
     child: NeumorphicButton(
@@ -33,10 +35,10 @@ Widget CircleButton(BuildContext context) {
   );
 }
 
-Widget CircleButtonRts(BuildContext context) {
+Widget CircleButtonRts(BuildContext context, Function()? function) {
   return Center(
     child: NeumorphicButton(
-      onPressed: () {},
+      onPressed: function,
       style: NeumorphicStyle(
           shape: NeumorphicShape.flat,
           boxShape: NeumorphicBoxShape.circle(),
