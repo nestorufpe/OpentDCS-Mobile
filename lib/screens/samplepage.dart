@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:opentdcsapp/screens/profile.dart';
 
 class SamplePage extends StatefulWidget {
   const SamplePage({Key? key}) : super(key: key);
@@ -122,8 +124,9 @@ class _SamplePageState extends State<SamplePage> {
 }
 
 void _onTapItem(BuildContext context, Contact post) {
-  Scaffold.of(context).showSnackBar(
-      new SnackBar(content: new Text("Tap on " + ' - ' + post.name)));
+  // Scaffold.of(context).showSnackBar(
+  //     new SnackBar(content: new Text("Tap on " + ' - ' + post.name)));
+  Get.to(ProfileSample(name: post.name,));
 }
 
 class Contact {

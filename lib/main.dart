@@ -38,6 +38,9 @@ class MyApp extends StatelessWidget {
       title: 'OpentDCs App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(primary: Colors.black),
+        ),
       ),
       // home: MyHomePage(),
       initialRoute: '/',
