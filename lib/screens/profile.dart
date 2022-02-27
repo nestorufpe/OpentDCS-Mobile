@@ -1,7 +1,4 @@
-import 'dart:html';
-
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:opentdcsapp/screens/eegresults.dart';
@@ -45,53 +42,55 @@ class _ProfileSampleState extends State<ProfileSample> {
   _ProfileSampleState(this.name);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Neumorphic(
-              child: CircleAvatar(
-                  radius: MediaQuery.of(context).size.width * 0.12,
-                  backgroundColor: Colors.blue,
-                  child: Text(
-                    "${name.substring(0, 1)}",
-                    style: TextStyle(fontSize: 24),
-                  )),
-              style: NeumorphicStyle(
-                  shape: NeumorphicShape.flat,
-                  boxShape: NeumorphicBoxShape.circle(),
-                  color: Colors.white),
+    return SafeArea(
+      child: Container(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Neumorphic(
+                child: CircleAvatar(
+                    radius: MediaQuery.of(context).size.width * 0.12,
+                    backgroundColor: Colors.blue,
+                    child: Text(
+                      "${name.substring(0, 1)}",
+                      style: TextStyle(fontSize: 24),
+                    )),
+                style: NeumorphicStyle(
+                    shape: NeumorphicShape.flat,
+                    boxShape: NeumorphicBoxShape.circle(),
+                    color: Colors.white),
+              ),
             ),
-          ),
-          Text(
-            name,
-            style: TextStyle(fontSize: 17),
-          ),
-          Text(
-            "ECA Parkison",
-            style: TextStyle(fontSize: 10),
-          ),
-          SizedBox(
-            height: 18,
-          ),
-          Text(
-            "Histórico",
-            style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.start,
-          ),
-          SizedBox(
-            height: 9,
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.6,
-            child: ListView.builder(
-                itemCount: cardsInfo.length,
-                itemBuilder: (context, index) {
-                  return cardsInfo[index];
-                }),
-          )
-        ],
+            Text(
+              name,
+              style: TextStyle(fontSize: 17),
+            ),
+            Text(
+              "ECA Parkison",
+              style: TextStyle(fontSize: 10),
+            ),
+            SizedBox(
+              height: 18,
+            ),
+            Text(
+              "Histórico",
+              style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.start,
+            ),
+            SizedBox(
+              height: 9,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.6,
+              child: ListView.builder(
+                  itemCount: cardsInfo.length,
+                  itemBuilder: (context, index) {
+                    return cardsInfo[index];
+                  }),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -156,7 +155,7 @@ class CardsProfile extends StatelessWidget {
                         TextSpan(
                             text: intensityValue,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 14))
+                                fontWeight: FontWeight.bold, fontSize: 14, color: Colors.black))
                       ]),
                     ),
                     RichText(
@@ -169,7 +168,7 @@ class CardsProfile extends StatelessWidget {
                         TextSpan(
                             text: timeValue,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 14))
+                                fontWeight: FontWeight.bold, fontSize: 14,color: Colors.black))
                       ]),
                     ),
                   ],
@@ -190,7 +189,7 @@ class CardsProfile extends StatelessWidget {
                         TextSpan(
                             text: shamValue,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 14))
+                                fontWeight: FontWeight.bold, fontSize: 14,color: Colors.black))
                       ]),
                     ),
                   ],
