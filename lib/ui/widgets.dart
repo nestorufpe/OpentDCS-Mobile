@@ -110,7 +110,7 @@ Widget CircleBtnPlayEeg(BuildContext context, double progress, Timer? timer) {
             timer?.cancel();
             EasyLoading.dismiss();
             text == "0";
-            Get.to(EegResults());
+            Get.to(EegResults(visible: true,));
           }
         });
       },

@@ -1,7 +1,10 @@
 import 'dart:html';
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:get/get.dart';
+import 'package:opentdcsapp/screens/eegresults.dart';
 
 class ProfileSample extends StatefulWidget {
   final String name;
@@ -24,37 +27,17 @@ class _ProfileSampleState extends State<ProfileSample> {
       time: "Tempo: ",
       timeValue: "20 min",
       sham: "Modo placebo: ",
-      shamValue: "B",
+      shamValue: "B (ECA Parkison)",
       textBtn: "Ver Placebo",
     ),
     CardsProfile(
-      trial: "tDCS",
-      intensity: "Intensidade:  ",
-      intensityValue: "2 mA",
-      time: "Tempo: ",
-      timeValue: "20 min",
-      sham: "Modo placebo: ",
-      shamValue: "B",
-      textBtn: "Ver Placebo",
-    ),
-    CardsProfile(
-      trial: "tDCS",
-      intensity: "Intensidade:  ",
-      intensityValue: "2 mA",
-      time: "Tempo: ",
-      timeValue: "20 min",
-      sham: "Modo placebo: ",
-      shamValue: "B",
-      textBtn: "Ver Placebo",
-    ),
-     CardsProfile(
       trial: "EEG",
       intensity: "Tempo:  ",
       intensityValue: "5 min",
-      time: "",
-      timeValue: "",
-      sham: "Avalição de número: ",
-      shamValue: "1",
+      time: "Período: ",
+      timeValue: "Antes da tDCS",
+      sham: "Eletrodos: ",
+      shamValue: "F7, FC5, FC3, Fp1, AFz, Fp2, FC4, FC6",
       textBtn: "Ver Gráfico",
     )
   ];
@@ -219,7 +202,19 @@ class CardsProfile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        if (trial=="tDCS") {
+                          final result = await showOkAlertDialog(
+                            context: context,
+                            title: "Modo Placebo",
+                            message: "A: Sham\nB: Ativo",
+                            
+                            );
+                        } else {
+                          Get.to(EegResults(visible: false,));
+                        }
+                        
+                      },
                       child: Text(textBtn),
                     ),
                     TextButton(
