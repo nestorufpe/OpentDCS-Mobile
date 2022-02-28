@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:opentdcsapp/screens/samplepage.dart';
 import 'package:opentdcsapp/utils/custom_icons.dart';
 import 'screens/tdcspage.dart';
@@ -9,7 +10,8 @@ import 'screens/eegpage.dart';
 import 'screens/samplepage.dart';
 import 'utils/routes.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init();
   runApp(MyApp());
   configLoading();
 }
@@ -65,14 +67,18 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         title: Column(
           children: [
-            Text("Fco José"),
-            Text(
-              "Parkison",
-              style: TextStyle(fontSize: 12, color: Colors.white54),
-            ),
+            Text("Selecione uma Amostra"),
           ],
         ),
+        actions: [
+          IconButton(onPressed: (){
+            setState(() {
+              currentPage = 0;
+            });
+          }, icon: Icon(Icons.add))
+        ],
       ),
+    
       body: Container(
         decoration: BoxDecoration(color: Colors.white),
         child: Center(

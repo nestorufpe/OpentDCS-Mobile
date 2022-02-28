@@ -3,6 +3,9 @@ import 'package:direct_select_flutter/direct_select_container.dart';
 import 'package:direct_select_flutter/direct_select_item.dart';
 import 'package:direct_select_flutter/direct_select_list.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:opentdcsapp/controller/ctdcs.dart';
+import 'package:get/get.dart';
 
 class ConfigTdcs extends StatefulWidget {
   const ConfigTdcs({Key? key}) : super(key: key);
@@ -18,15 +21,10 @@ List<String> _intensity = [
   "2.0 mA",
 ];
 
+String _current = "";
+
 class _ConfigTdcsState extends State<ConfigTdcs> {
   List<String> _time = ["10 min", "15 min", "20 min", "30 min", "40 min"];
-  List<String> _foodVariants = [
-    "Chicken grilled",
-    "Pork grilled",
-    "Vegetables as is",
-    "Cheese as is",
-    "Bread tasty"
-  ];
   List<String> _protocols = [
     "ECA cefaleia",
     "Low back pain",
@@ -42,7 +40,27 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
   int selectedProtocol = 0;
   int selectedMode = 0;
 
-  DirectSelectItem<String> getDropDownMenuItem(String value) {
+  DirectSelectItem<String> getDropDownMenuItemSham(String value) {
+    return DirectSelectItem<String>(
+      itemHeight: 56,
+      value: value,
+      itemBuilder: (context, value) {
+        return Text(value);
+      },
+    );
+  }
+
+  DirectSelectItem<String> getDropDownMenuItemProtocol(String value) {
+    return DirectSelectItem<String>(
+      itemHeight: 56,
+      value: value,
+      itemBuilder: (context, value) {
+        return Text(value);
+      },
+    );
+  }
+
+  DirectSelectItem<String> getDropDownMenuMode(String value) {
     return DirectSelectItem<String>(
       itemHeight: 56,
       value: value,
@@ -62,6 +80,8 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
   }
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+
+  final c = Get.put(ControllerTdcs.to);
 
   @override
   Widget build(BuildContext context) {
@@ -110,10 +130,10 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: <Widget>[
-                      MealSelector(
+                      IntensitySelector(
                           data: _intensity, label: "Qual a intensidade?"),
                       SizedBox(height: 20.0),
-                      MealSelector(data: _time, label: "Qual a duração?"),
+                      TimeSelector(data: _time, label: "Qual a duração?"),
                       SizedBox(height: 15.0),
                       Container(
                           padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
@@ -140,7 +160,8 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                                               values: _sham,
                                               defaultItemIndex: selectedSham,
                                               itemBuilder: (String value) =>
-                                                  getDropDownMenuItem(value),
+                                                  getDropDownMenuItemSham(
+                                                      value),
                                               focusedItemDecoration:
                                                   _getDslDecoration(),
                                               onItemSelectedListener:
@@ -173,7 +194,8 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                                               defaultItemIndex:
                                                   selectedProtocol,
                                               itemBuilder: (String value) =>
-                                                  getDropDownMenuItem(value),
+                                                  getDropDownMenuItemProtocol(
+                                                      value),
                                               focusedItemDecoration:
                                                   _getDslDecoration(),
                                               onItemSelectedListener:
@@ -208,7 +230,7 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                                               },
                                               defaultItemIndex: selectedMode,
                                               itemBuilder: (String value) =>
-                                                  getDropDownMenuItem(value),
+                                                  getDropDownMenuMode(value),
                                               focusedItemDecoration:
                                                   _getDslDecoration(),
                                               onItemSelectedListener:
@@ -229,9 +251,8 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                       SizedBox(
                         height: 12,
                       ),
-                      Row(children: <Widget>[
-                        Expanded(
-                            child: RaisedButton(
+                      Column(children: <Widget>[
+                        RaisedButton(
                           child: const Text('\u{2795} NOVO PROTOCOLO SHAM',
                               style: TextStyle(color: Colors.blueAccent)),
                           onPressed: () async {
@@ -246,7 +267,15 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                               title: 'Protocolo',
                             );
                           },
-                        ))
+                        ),
+                        ElevatedButton(
+                          child: const Text('USAR ESSA CONFIGURAÇÃO',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          onPressed: () {
+                            c.setCurrent(_current);
+                            Get.back();
+                          },
+                        ),
                       ]),
                     ],
                   ),
@@ -286,13 +315,14 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
   }
 }
 
-class MealSelector extends StatelessWidget {
+class IntensitySelector extends StatelessWidget {
   final buttonPadding = const EdgeInsets.fromLTRB(0, 8, 0, 0);
 
   final List<String> data;
   final String label;
+  // final c = ControllerTdcs.to;
 
-  MealSelector({required this.data, required this.label});
+  IntensitySelector({required this.data, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -317,7 +347,7 @@ class MealSelector extends StatelessWidget {
                           defaultItemIndex: 0,
                           onUserTappedListener: () {},
                           itemBuilder: (String value) =>
-                              getDropDownMenuItem(value),
+                              getDropDownMenuItemIntensity(value),
                           focusedItemDecoration: _getDslDecoration(),
                         ),
                         padding: EdgeInsets.only(left: 12))),
@@ -333,7 +363,95 @@ class MealSelector extends StatelessWidget {
     );
   }
 
-  DirectSelectItem<String> getDropDownMenuItem(String value) {
+  DirectSelectItem<String> getDropDownMenuItemIntensity(String value) {
+    return DirectSelectItem<String>(
+      itemHeight: 56,
+      value: value,
+      itemBuilder: (context, value) {
+        _current = value;
+        return Text(value);
+      },
+    );
+  }
+
+  _getDslDecoration() {
+    return BoxDecoration(
+      border: BorderDirectional(
+        bottom: BorderSide(width: 1, color: Colors.black12),
+        top: BorderSide(width: 1, color: Colors.black12),
+      ),
+    );
+  }
+
+  BoxDecoration _getShadowDecoration() {
+    return BoxDecoration(
+      boxShadow: <BoxShadow>[
+        new BoxShadow(
+          color: Colors.black.withOpacity(0.06),
+          spreadRadius: 4,
+          offset: new Offset(0.0, 0.0),
+          blurRadius: 15.0,
+        ),
+      ],
+    );
+  }
+
+  Icon _getDropdownIcon() {
+    return Icon(
+      Icons.unfold_more,
+      color: Colors.blueAccent,
+    );
+  }
+}
+
+class TimeSelector extends StatelessWidget {
+  final buttonPadding = const EdgeInsets.fromLTRB(0, 8, 0, 0);
+
+  final List<String> data;
+  final String label;
+
+  TimeSelector({required this.data, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+            alignment: AlignmentDirectional.centerStart,
+            margin: EdgeInsets.only(left: 4),
+            child: Text(label)),
+        Padding(
+          padding: buttonPadding,
+          child: Container(
+            decoration: _getShadowDecoration(),
+            child: Card(
+                child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Expanded(
+                    child: Padding(
+                        child: DirectSelectList<String>(
+                          values: data,
+                          defaultItemIndex: 0,
+                          onUserTappedListener: () {},
+                          itemBuilder: (String value) =>
+                              getDropDownMenuItemTime(value),
+                          focusedItemDecoration: _getDslDecoration(),
+                        ),
+                        padding: EdgeInsets.only(left: 12))),
+                Padding(
+                  padding: EdgeInsets.only(right: 8),
+                  child: _getDropdownIcon(),
+                )
+              ],
+            )),
+          ),
+        ),
+      ],
+    );
+  }
+
+  DirectSelectItem<String> getDropDownMenuItemTime(String value) {
     return DirectSelectItem<String>(
         itemHeight: 56,
         value: value,
@@ -371,6 +489,7 @@ class MealSelector extends StatelessWidget {
     );
   }
 }
+
 
 // Widget _getFoodContainsRow() {
 //   final cardSize = 80.0;

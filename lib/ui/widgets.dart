@@ -142,7 +142,7 @@ Widget ContainerNeu(BuildContext context) {
   );
 }
 
-Widget ContainerNeuValues(BuildContext context) {
+Widget ContainerNeuValues(BuildContext context, String current) {
   return Row(
     children: [
       Expanded(
@@ -170,7 +170,7 @@ Widget ContainerNeuValues(BuildContext context) {
                     height: 10,
                   ),
                   Text(
-                    "2mA",
+                    current,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                   ),
                   SizedBox(
