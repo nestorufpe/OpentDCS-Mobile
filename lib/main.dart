@@ -33,6 +33,7 @@ void configLoading() {
 }
 
 class MyApp extends StatelessWidget {
+  final GetStorage box = GetStorage();
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -71,14 +72,15 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
         actions: [
-          IconButton(onPressed: (){
-            setState(() {
-              currentPage = 0;
-            });
-          }, icon: Icon(Icons.add))
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  currentPage = 0;
+                });
+              },
+              icon: Icon(Icons.add))
         ],
       ),
-    
       body: Container(
         decoration: BoxDecoration(color: Colors.white),
         child: Center(

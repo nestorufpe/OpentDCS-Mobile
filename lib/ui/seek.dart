@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:opentdcsapp/controller/ctdcs.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+
+final c = Get.put(ControllerTdcs.to);
 
 class ExampleViewModel {
   final List<Color> pageColors;
@@ -64,9 +68,9 @@ final CircularSliderAppearance appearance01 = CircularSliderAppearance(
     infoProperties: info01,
     counterClockwise: true);
 
-Widget CustomSeek(BuildContext context) {
+Widget CustomSeek(BuildContext context, double max) {
   final ExampleViewModel viewModel =
-      ExampleViewModel(appearance: appearance01, value: 2, pageColors: [
+      ExampleViewModel(appearance: appearance01, value: max, pageColors: [
     HexColor('#FFFFFF'),
     HexColor('#EEEEEE'),
     HexColor('#FFFFFF'),
@@ -74,7 +78,9 @@ Widget CustomSeek(BuildContext context) {
   ]);
   return SleekCircularSlider(
     onChangeStart: (double value) {},
-    onChangeEnd: (double value) {},
+    onChangeEnd: (double value) {
+      c.setCurrentReal(value);
+    },
     innerWidget: viewModel.innerWidget,
     appearance: viewModel.appearance,
     min: viewModel.min,

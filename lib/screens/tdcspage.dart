@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:opentdcsapp/controller/ctdcs.dart';
 import 'package:opentdcsapp/ui/widgets.dart';
 import 'package:opentdcsapp/ui/neu_digital_clock.dart';
 
 class TDCSPage extends StatelessWidget {
-   TDCSPage({Key? key}) : super(key: key);
-  final c  = Get.put(ControllerTdcs());
+  TDCSPage({Key? key}) : super(key: key);
 
+  final c = Get.put(ControllerTdcs());
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,10 @@ class TDCSPage extends StatelessWidget {
             flex: 1,
             child: Row(
               children: [
-                Obx(()=> Expanded(flex: 2, child: ContainerNeuValues(context, c.current.value))),
+                Obx(() => Expanded(
+                    flex: 2,
+                    child: ContainerNeuValues(context,
+                        c.currentReal.value.toString().substring(0, 3)))),
                 Expanded(flex: 1, child: CircleBtnPlay(context))
               ],
             ),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:opentdcsapp/controller/ctdcs.dart';
 import 'package:opentdcsapp/screens/configtdcs.dart';
 import 'package:opentdcsapp/screens/eegresults.dart';
 import 'package:opentdcsapp/ui/seek.dart';
@@ -55,11 +57,31 @@ Widget CircleButtonRts(BuildContext context, Function()? function) {
   );
 }
 
+final c = Get.put(ControllerTdcs.to);
 Widget CircleBtnPlay(BuildContext context) {
   return Center(
     child: NeumorphicButton(
       onPressed: () {
-        print("click");
+        Timer? _timer;
+        double count = 0;
+        _timer?.cancel();
+
+        _timer = Timer.periodic(
+            Duration(
+              milliseconds: 1000,
+            ), (timer) {
+          print(count);
+          // print(c.current.value.substring(0, 3));
+
+          count += 0.2;
+          c.setCurrentReal(count);
+
+          if (count >= double.parse(c.current.value.substring(0, 3))) {
+            _timer?.cancel();
+          }
+
+          // return timer.cancel();
+        });
       },
       style: NeumorphicStyle(
           shape: NeumorphicShape.flat,
@@ -110,7 +132,9 @@ Widget CircleBtnPlayEeg(BuildContext context, double progress, Timer? timer) {
             timer?.cancel();
             EasyLoading.dismiss();
             text == "0";
-            Get.to(EegResults(visible: true,));
+            Get.to(EegResults(
+              visible: true,
+            ));
           }
         });
       },
@@ -138,7 +162,7 @@ Widget ContainerNeu(BuildContext context) {
       boxShape: NeumorphicBoxShape.circle(),
     ),
     padding: EdgeInsets.all(12.0),
-    child: CustomSeek(context),
+    child: Obx(() => CustomSeek(context, c.currentReal.value)),
   );
 }
 
@@ -273,4 +297,8 @@ Widget ContainerNeuValues(BuildContext context, String current) {
       ),
     ],
   );
+}
+
+int random(min, max) {
+  return min + Random().nextInt(max - min);
 }

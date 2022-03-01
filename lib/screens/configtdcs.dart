@@ -80,8 +80,8 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
   }
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-
-  final c = Get.put(ControllerTdcs.to);
+  final GetStorage box = GetStorage();
+  final c = Get.put(ControllerTdcs());
 
   @override
   Widget build(BuildContext context) {
@@ -272,7 +272,9 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                           child: const Text('USAR ESSA CONFIGURAÇÃO',
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           onPressed: () {
-                            c.setCurrent(_current);
+                            box.write("current", _current);
+                            c.setCurrent(box.read("current"));
+                            c.setCurrentReal(0.0);
                             Get.back();
                           },
                         ),
