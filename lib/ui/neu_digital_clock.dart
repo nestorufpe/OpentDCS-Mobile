@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:opentdcsapp/controller/ctdcs.dart';
 import 'package:opentdcsapp/ui/digital_colon.dart';
 import 'package:opentdcsapp/ui/digital_number.dart';
 
 class NeuDigitalClock extends StatelessWidget {
-  const NeuDigitalClock({Key? key}) : super(key: key);
+  final c = Get.put(ControllerTdcs.to);
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +44,13 @@ class NeuDigitalClock extends StatelessWidget {
                 width: 2,
               ),
             ),
-            child: DigitalClock(
-              height: constraints.maxHeight,
-              width: constraints.maxWidth,
-              seconds: 05,
-              minutes: 12,
-              hours: 5,
-            ),
+            child: Obx(() => DigitalClock(
+                  height: constraints.maxHeight,
+                  width: constraints.maxWidth,
+                  seconds: 0,
+                  minutes: (c.time.value ~/ 60).toInt(),
+                  hours: c.time.value,
+                )),
           ),
         ),
       ),

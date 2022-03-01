@@ -23,6 +23,8 @@ List<String> _intensity = [
 
 String _current = "";
 
+int _tempo = 0;
+
 class _ConfigTdcsState extends State<ConfigTdcs> {
   List<String> _time = ["10 min", "15 min", "20 min", "30 min", "40 min"];
   List<String> _protocols = [
@@ -273,8 +275,10 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           onPressed: () {
                             box.write("current", _current);
+                            box.write("time", _tempo);
                             c.setCurrent(box.read("current"));
                             c.setCurrentReal(0.0);
+                            c.setTime(box.read("time"));
                             Get.back();
                           },
                         ),
@@ -458,6 +462,7 @@ class TimeSelector extends StatelessWidget {
         itemHeight: 56,
         value: value,
         itemBuilder: (context, value) {
+          _tempo = int.parse(value.substring(0, 2));
           return Text(value);
         });
   }

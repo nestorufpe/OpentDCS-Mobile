@@ -63,21 +63,38 @@ Widget CircleBtnPlay(BuildContext context) {
     child: NeumorphicButton(
       onPressed: () {
         Timer? _timer;
-        double count = 0;
+        Timer? _timer2;
+        double intensity = 0;
+        int _tempo = c.time.value;
         _timer?.cancel();
 
         _timer = Timer.periodic(
             Duration(
               milliseconds: 1000,
             ), (timer) {
-          print(count);
+          print(intensity);
           // print(c.current.value.substring(0, 3));
 
-          count += 0.2;
-          c.setCurrentReal(count);
+          intensity += 0.2;
+          _tempo -= 1;
+          c.setCurrentReal(intensity);
+          c.setTime(_tempo);
 
-          if (count >= double.parse(c.current.value.substring(0, 3))) {
+          if (intensity >= double.parse(c.current.value.substring(0, 3))) {
             _timer?.cancel();
+            _timer2?.cancel();
+
+            _timer2 = Timer.periodic(Duration(milliseconds: 1000), (timer) {
+              _tempo -= 1;
+
+              c.setCurrentReal(intensity);
+              c.setTime(_tempo);
+              if (_tempo <= 4) {
+                c.setTime(0);
+                c.setCurrentReal(0);
+                _timer2?.cancel();
+              }
+            });
           }
 
           // return timer.cancel();
