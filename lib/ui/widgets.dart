@@ -80,6 +80,10 @@ void playCurrent(double start_intensity, double stop_intensity) {
           ..reset()
           ..start();
       }
+      //stop
+      else {
+        c.setColormA(Colors.green);
+      }
       // This is really what your callback do.
       print('\t$start_intensity');
 
@@ -95,26 +99,61 @@ void playTime(int start_tempo, int stop_time) {
     () {
       start_tempo = start_tempo >= stop_time ? start_tempo -= 1 : start_tempo;
 
+      //atualiza
       if (start_tempo >= stop_time) {
         timer
           ..reset()
           ..start();
-      } else {
+      }
+      //stop
+      else {
         c.setCurrentReal(0.0);
         c.setPlay(Icons.play_arrow);
+        c.setStop(Icons.settings);
+        c.setResistence(0);
+        c.setColormA(Colors.red);
+        c.setColorK(Colors.red);
       }
 
-      if (c.bisPlay == false) {
+      if (c.bisPlay.value == false) {
         timer.pause();
       }
 
-      if (c.bisStop == true) {
+      if (c.bisStop.value == true) {
         timer.cancel();
         c.setTime(0);
       }
       // This is really what your callback do.
       print('\t$start_tempo');
       c.setTime(start_tempo);
+    },
+  )..start();
+}
+
+void playResistence(int start_r, int stop_r) {
+  late final PausableTimer timer;
+  timer = PausableTimer(
+    Duration(seconds: 1),
+    () {
+      start_r = start_r >= stop_r ? start_r -= 1 : start_r;
+
+      //atualiza
+      if (start_r >= stop_r) {
+        timer
+          ..reset()
+          ..start();
+      }
+      //stop
+      else {
+        c.setColorK(Colors.green);
+      }
+      if (c.bisStop.value == true) {
+        timer.cancel();
+        c.setResistence(0);
+      }
+      // This is really what your callback do.
+      print('\t$start_r');
+      c.setResistence(start_r);
     },
   )..start();
 }
@@ -127,6 +166,8 @@ Widget CircleBtnPlay(BuildContext context) {
         int start_tempo = c.time.value;
         int stop_time = 1;
         double start_intensity = 0;
+        int start_r = 35;
+        int stop_r = 6;
 
         c.bisPlay == true ? c.setIsPlay(false) : c.setIsPlay(true);
 
@@ -134,6 +175,7 @@ Widget CircleBtnPlay(BuildContext context) {
           c.setPlay(Icons.pause);
           playCurrent(start_intensity, stop_intensity);
           playTime(start_tempo, stop_time);
+          playResistence(start_r, stop_r);
           c.setStop(Icons.stop);
           c.setIsStop(false);
         } else {
@@ -245,8 +287,8 @@ Widget ContainerNeuValues(BuildContext context, String current) {
               Column(
                 children: [
                   Text(
-                    "I",
-                    style: TextStyle(fontSize: 14),
+                    "mA(REAL)",
+                    style: TextStyle(fontSize: 12),
                   ),
                   SizedBox(
                     height: 10,
@@ -261,7 +303,7 @@ Widget ContainerNeuValues(BuildContext context, String current) {
                   Icon(
                     Icons.circle,
                     size: 12,
-                    color: Colors.green,
+                    color: c.colormA.value,
                   )
                 ],
               ),
@@ -287,14 +329,14 @@ Widget ContainerNeuValues(BuildContext context, String current) {
               Column(
                 children: [
                   Text(
-                    "R",
+                    "kΩ",
                     style: TextStyle(fontSize: 14),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    "9 kΩ",
+                    "${c.resistence.value}",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                   ),
                   SizedBox(
@@ -303,7 +345,7 @@ Widget ContainerNeuValues(BuildContext context, String current) {
                   Icon(
                     Icons.circle,
                     size: 12,
-                    color: Colors.red,
+                    color: c.colorK.value,
                   )
                 ],
               ),
