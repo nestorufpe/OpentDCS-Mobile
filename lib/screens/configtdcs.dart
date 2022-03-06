@@ -22,6 +22,8 @@ List<String> _intensity = [
 ];
 
 String _current = "";
+String _modev = "";
+String _shamv = "";
 
 int _tempo = 0;
 
@@ -47,6 +49,7 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
       itemHeight: 56,
       value: value,
       itemBuilder: (context, value) {
+        _shamv = value;
         return Text(value);
       },
     );
@@ -67,6 +70,7 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
       itemHeight: 56,
       value: value,
       itemBuilder: (context, value) {
+        _modev = value;
         return Text(value);
       },
     );
@@ -276,9 +280,12 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                           onPressed: () {
                             box.write("current", _current);
                             box.write("time", _tempo);
+                            box.write("mode", _modev);
                             c.setCurrent(box.read("current"));
                             c.setCurrentReal(0.0);
                             c.setTime(box.read("time"));
+                            c.setMode(_modev.substring(5, 6));
+                            c.setSham(_shamv);
                             Get.back();
                           },
                         ),

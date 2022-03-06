@@ -26,12 +26,12 @@ class TDCSPage extends StatelessWidget {
                       padding: const EdgeInsets.all(12.0),
                       child: NeuDigitalClock(),
                     )),
-                Expanded(
+                Obx(() => Expanded(
                     flex: 1,
                     child: Align(
-                      child: CircleButton(context),
+                      child: CircleButtonConfig(context),
                       alignment: Alignment.center,
-                    )),
+                    ))),
               ],
             ),
           ),
@@ -49,15 +49,15 @@ class TDCSPage extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: Row(
-              children: [
-                Obx(() => Expanded(
-                    flex: 2,
-                    child: ContainerNeuValues(context,
-                        c.currentReal.value.toString().substring(0, 3)))),
-                Expanded(flex: 1, child: CircleBtnPlay(context))
-              ],
-            ),
+            child: Obx(() => Row(
+                  children: [
+                    Expanded(
+                        flex: 2,
+                        child: ContainerNeuValues(context,
+                            c.currentReal.value.toString().substring(0, 3))),
+                    Expanded(flex: 1, child: CircleBtnPlay(context))
+                  ],
+                )),
           )
         ],
       )),

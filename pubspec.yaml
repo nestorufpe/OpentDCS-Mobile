@@ -37,6 +37,7 @@ dependencies:
   flutter_easyloading: ^3.0.3
   flutter_radar_chart: ^0.2.1
   get_storage:
+  pausable_timer:
 
 dev_dependencies:
   flutter_test:

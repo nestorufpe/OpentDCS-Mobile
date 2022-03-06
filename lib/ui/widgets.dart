@@ -12,14 +12,23 @@ import 'package:opentdcsapp/screens/configtdcs.dart';
 import 'package:opentdcsapp/screens/eegresults.dart';
 import 'package:opentdcsapp/ui/seek.dart';
 import 'package:opentdcsapp/utils/custom_icons.dart';
+import 'package:pausable_timer/pausable_timer.dart';
 
 import '../screens/eegpage.dart';
 
-Widget CircleButton(BuildContext context) {
+final c = Get.put(ControllerTdcs.to);
+
+Widget CircleButtonConfig(BuildContext context) {
   return Center(
     child: NeumorphicButton(
       onPressed: () {
         Get.to(ConfigTdcs(), transition: Transition.rightToLeft);
+
+        c.setIsStop(true);
+        c.setPlay(Icons.play_arrow);
+        c.setCurrentReal(0.0);
+        c.setTime(0);
+        c.setStop(Icons.settings);
       },
       style: NeumorphicStyle(
           shape: NeumorphicShape.flat,
@@ -28,7 +37,7 @@ Widget CircleButton(BuildContext context) {
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Icon(
-          Icons.settings,
+          c.isStop.value,
           color: Colors.black,
           size: 44,
         ),
@@ -57,48 +66,80 @@ Widget CircleButtonRts(BuildContext context, Function()? function) {
   );
 }
 
-final c = Get.put(ControllerTdcs.to);
+void playCurrent(double start_intensity, double stop_intensity) {
+  late final PausableTimer timer;
+  timer = PausableTimer(
+    Duration(seconds: 1),
+    () {
+      start_intensity = start_intensity <= stop_intensity
+          ? start_intensity += 0.1
+          : start_intensity;
+
+      if (start_intensity <= stop_intensity) {
+        timer
+          ..reset()
+          ..start();
+      }
+      // This is really what your callback do.
+      print('\t$start_intensity');
+
+      c.setCurrentReal(start_intensity);
+    },
+  )..start();
+}
+
+void playTime(int start_tempo, int stop_time) {
+  late final PausableTimer timer;
+  timer = PausableTimer(
+    Duration(seconds: 1),
+    () {
+      start_tempo = start_tempo >= stop_time ? start_tempo -= 1 : start_tempo;
+
+      if (start_tempo >= stop_time) {
+        timer
+          ..reset()
+          ..start();
+      } else {
+        c.setCurrentReal(0.0);
+        c.setPlay(Icons.play_arrow);
+      }
+
+      if (c.bisPlay == false) {
+        timer.pause();
+      }
+
+      if (c.bisStop == true) {
+        timer.cancel();
+        c.setTime(0);
+      }
+      // This is really what your callback do.
+      print('\t$start_tempo');
+      c.setTime(start_tempo);
+    },
+  )..start();
+}
+
 Widget CircleBtnPlay(BuildContext context) {
   return Center(
     child: NeumorphicButton(
-      onPressed: () {
-        Timer? _timer;
-        Timer? _timer2;
-        double intensity = 0;
-        int _tempo = c.time.value;
-        _timer?.cancel();
+      onPressed: () async {
+        double stop_intensity = double.parse(c.current.value.substring(0, 3));
+        int start_tempo = c.time.value;
+        int stop_time = 1;
+        double start_intensity = 0;
 
-        _timer = Timer.periodic(
-            Duration(
-              milliseconds: 1000,
-            ), (timer) {
-          print(intensity);
-          // print(c.current.value.substring(0, 3));
+        c.bisPlay == true ? c.setIsPlay(false) : c.setIsPlay(true);
 
-          intensity += 0.2;
-          _tempo -= 1;
-          c.setCurrentReal(intensity);
-          c.setTime(_tempo);
-
-          if (intensity >= double.parse(c.current.value.substring(0, 3))) {
-            _timer?.cancel();
-            _timer2?.cancel();
-
-            _timer2 = Timer.periodic(Duration(milliseconds: 1000), (timer) {
-              _tempo -= 1;
-
-              c.setCurrentReal(intensity);
-              c.setTime(_tempo);
-              if (_tempo <= 4) {
-                c.setTime(0);
-                c.setCurrentReal(0);
-                _timer2?.cancel();
-              }
-            });
-          }
-
-          // return timer.cancel();
-        });
+        if (c.bisPlay == true) {
+          c.setPlay(Icons.pause);
+          playCurrent(start_intensity, stop_intensity);
+          playTime(start_tempo, stop_time);
+          c.setStop(Icons.stop);
+          c.setIsStop(false);
+        } else {
+          c.setPlay(Icons.play_arrow);
+          playTime(start_tempo, stop_time);
+        }
       },
       style: NeumorphicStyle(
           shape: NeumorphicShape.flat,
@@ -107,7 +148,7 @@ Widget CircleBtnPlay(BuildContext context) {
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Icon(
-          Icons.play_arrow,
+          c.isPlay.value,
           color: Colors.black,
           size: 44,
         ),
@@ -295,7 +336,7 @@ Widget ContainerNeuValues(BuildContext context, String current) {
                     height: 10,
                   ),
                   Text(
-                    "B",
+                    c.sham.value == "NÃO" ? "NÃO" : c.mode.value,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                   ),
                   SizedBox(
