@@ -199,6 +199,26 @@ Widget CircleBtnPlay(BuildContext context) {
   );
 }
 
+void playProgresEeg(double progress, Timer? timer, List<String>? text) async {
+  progress = 0;
+  timer?.cancel();
+  timer = await Timer.periodic(Duration(milliseconds: 100), (Timer mtimer) {
+    EasyLoading.showProgress(progress,
+        maskType: EasyLoadingMaskType.black,
+        status: '${(progress * 100).toStringAsFixed(0)}%');
+    progress += 0.03;
+
+    if (progress >= 1) {
+      timer?.cancel();
+      EasyLoading.dismiss();
+      text == "0";
+      Get.to(EegResults(
+        visible: true,
+      ));
+    }
+  });
+}
+
 Widget CircleBtnPlayEeg(BuildContext context, double progress, Timer? timer) {
   return Center(
     child: NeumorphicButton(
@@ -207,36 +227,28 @@ Widget CircleBtnPlayEeg(BuildContext context, double progress, Timer? timer) {
           context: context,
           cancelLabel: "CANCELAR",
           okLabel: "GRAVAR",
-          textFields: const [
+          textFields: [
             DialogTextField(
               hintText: 'Duração em minutos',
+              validator: (value) =>
+                  value!.isEmpty ? 'Digite o tempo para prosseguir' : null,
               keyboardType: TextInputType.number,
               suffixText: " min",
             ),
+            DialogTextField(
+              hintText: 'Eletrodos',
+              keyboardType: TextInputType.text,
+            ),
+            DialogTextField(
+              hintText: 'Período (antes ou depois da tDCs)',
+              keyboardType: TextInputType.text,
+            ),
           ],
-          title: 'Duração',
+          title: 'Parâmetros para EEG',
         );
-
-        // int duration = int.parse(text?.first ?? '0');
-
-        progress = 0;
-        timer?.cancel();
-        timer =
-            await Timer.periodic(Duration(milliseconds: 100), (Timer mtimer) {
-          EasyLoading.showProgress(progress,
-              maskType: EasyLoadingMaskType.black,
-              status: '${(progress * 100).toStringAsFixed(0)}%');
-          progress += 0.03;
-
-          if (progress >= 1) {
-            timer?.cancel();
-            EasyLoading.dismiss();
-            text == "0";
-            Get.to(EegResults(
-              visible: true,
-            ));
-          }
-        });
+        if (text != null) {
+          playProgresEeg(progress, timer, text);
+        }
       },
       style: NeumorphicStyle(
           shape: NeumorphicShape.flat,

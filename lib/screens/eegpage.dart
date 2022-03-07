@@ -53,66 +53,68 @@ class _EEGPageState extends State<EEGPage> {
       body: Column(
         children: [
           //Indicação da resistência
-          Expanded(
-              flex: 1,
-              child: Column(
-                children: [
-                  Center(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          "Impedância",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 45, vertical: 14),
-                          child: Text(
-                            "Ajuste o contato dos eletrodos com o escalpo para reduzir a resitência",
-                            textAlign: TextAlign.justify,
-                            style:
-                                TextStyle(color: Colors.black54, fontSize: 12),
+          SingleChildScrollView(
+            child: Expanded(
+                flex: 1,
+                child: Column(
+                  children: [
+                    Center(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 8,
                           ),
+                          Text(
+                            "Ajuste de Impedância",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 45, vertical: 14),
+                            child: Text(
+                              "Ajuste o contato dos eletrodos com o escalpo para reduzir a resitência. Os canais em vermelho são os de impedância elevada.",
+                              textAlign: TextAlign.justify,
+                              style: TextStyle(
+                                  color: Colors.black54, fontSize: 12),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.circle,
+                          color: Colors.red,
                         ),
+                        Text("Ruim"),
+                        SizedBox(
+                          width: 14,
+                        ),
+                        Icon(
+                          Icons.circle,
+                          color: Colors.green,
+                        ),
+                        Text("Bom"),
                       ],
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.circle,
-                        color: Colors.red,
-                      ),
-                      Text("Ruim"),
-                      SizedBox(
-                        width: 14,
-                      ),
-                      Icon(
-                        Icons.circle,
-                        color: Colors.green,
-                      ),
-                      Text("Bom"),
-                    ],
-                  ),
-                ],
-              )),
+                  ],
+                )),
+          ),
           //GridView com os canais/loading/radar chart
           Expanded(
             flex: 1,
             child: GridView.count(
               crossAxisCount: 3,
               childAspectRatio: (2 / 1),
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 5,
-              padding: EdgeInsets.all(8.0),
+              crossAxisSpacing: 4,
+              mainAxisSpacing: 4,
+              padding: EdgeInsets.only(left: 8, top: 24, right: 8.0, bottom: 8),
               children: items
                   .map(
                     (data) => GestureDetector(
@@ -148,10 +150,12 @@ class _EEGPageState extends State<EEGPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    CircleButtonRts(context, (){
+                    CircleButtonRts(context, () {
                       setState(() {
-                        items[2] = GridListItems(color: Colors.green, title: "Ch3");
-                        items[4] = GridListItems(color: Colors.green, title: "Ch5");
+                        items[2] =
+                            GridListItems(color: Colors.green, title: "Ch3");
+                        items[4] =
+                            GridListItems(color: Colors.green, title: "Ch5");
                       });
                     }),
                     CircleBtnPlayEeg(context, _progress, _timer),
