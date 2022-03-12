@@ -3,12 +3,16 @@ import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:opentdcsapp/controller/ctdcs.dart';
+import 'package:opentdcsapp/screens/addsamplepage.dart';
 import 'package:opentdcsapp/screens/samplepage.dart';
 import 'package:opentdcsapp/utils/custom_icons.dart';
 import 'screens/tdcspage.dart';
 import 'screens/eegpage.dart';
 import 'screens/samplepage.dart';
 import 'utils/routes.dart';
+
+final c = Get.put(ControllerTdcs.to);
 
 void main() async {
   await GetStorage.init();
@@ -68,15 +72,13 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         title: Column(
           children: [
-            Text("Selecione uma Amostra"),
+            Obx(() => Text(c.nameSample.value)),
           ],
         ),
         actions: [
           IconButton(
               onPressed: () {
-                setState(() {
-                  currentPage = 0;
-                });
+                Get.to(AddSample());
               },
               icon: Icon(Icons.add))
         ],

@@ -14,12 +14,17 @@ class ControllerTdcs extends GetxController {
   var bisStop = false.obs;
   var colormA = Colors.red.obs;
   var colorK = Colors.red.obs;
+  var nameSample = "Selecione uma amostra".obs;
 
   static ControllerTdcs get to => Get.find<ControllerTdcs>();
 
   @override
   void onInit() {
     super.onInit();
+  }
+
+  setSampleName(String s) {
+    nameSample(s);
   }
 
   setColormA(MaterialColor c) {
