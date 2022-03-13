@@ -7,6 +7,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:opentdcsapp/controller/ceeg.dart';
 import 'package:opentdcsapp/controller/ctdcs.dart';
 import 'package:opentdcsapp/screens/configtdcs.dart';
 import 'package:opentdcsapp/screens/eegresults.dart';
@@ -15,8 +16,10 @@ import 'package:opentdcsapp/utils/custom_icons.dart';
 import 'package:pausable_timer/pausable_timer.dart';
 
 import '../screens/eegpage.dart';
+import '../screens/profile.dart';
 
 final c = Get.put(ControllerTdcs.to);
+final ce = Get.put(ControllerEeg());
 
 Widget CircleButtonConfig(BuildContext context) {
   return Center(
@@ -92,11 +95,11 @@ void playCurrent(double start_intensity, double stop_intensity) {
   )..start();
 }
 
-void playTime(int start_tempo, int stop_time) {
+void playTime(int start_tempo, int stop_time, BuildContext context) {
   late final PausableTimer timer;
   timer = PausableTimer(
     Duration(seconds: 1),
-    () {
+    () async {
       start_tempo = start_tempo >= stop_time ? start_tempo -= 1 : start_tempo;
 
       //atualiza
@@ -113,6 +116,29 @@ void playTime(int start_tempo, int stop_time) {
         c.setResistence(0);
         c.setColormA(Colors.red);
         c.setColorK(Colors.red);
+        var dialog = await showOkCancelAlertDialog(
+            context: context,
+            title: 'SALVAR',
+            message: 'Deseija salvar a coleta?',
+            barrierDismissible: false,
+            okLabel: "SIM",
+            cancelLabel: "NÃO");
+        if (dialog == OkCancelResult.ok) {
+          ce.setEeg(
+            CardsProfile(
+              trial: "tDCS",
+              type: "Intensidade:  ",
+              typeValue: "2 mA",
+              time: "Tempo: ",
+              timeValue: "20 min",
+              shamElectrodes: "Modo placebo: ",
+              shamElectrodesValue: "B (ECA Parkison)",
+              textBtn: "Ver Placebo",
+            ),
+          );
+        } else {
+          print("cancel");
+        }
       }
 
       if (c.bisPlay.value == false) {
@@ -135,7 +161,7 @@ void playResistence(int start_r, int stop_r) {
   timer = PausableTimer(
     Duration(seconds: 1),
     () {
-      start_r = start_r >= stop_r ? start_r -= 1 : start_r;
+      start_r = start_r >= stop_r ? start_r -= 4 : start_r;
 
       //atualiza
       if (start_r >= stop_r) {
@@ -174,13 +200,13 @@ Widget CircleBtnPlay(BuildContext context) {
         if (c.bisPlay == true) {
           c.setPlay(Icons.pause);
           playCurrent(start_intensity, stop_intensity);
-          playTime(start_tempo, stop_time);
+          playTime(start_tempo, stop_time, context);
           playResistence(start_r, stop_r);
           c.setStop(Icons.stop);
           c.setIsStop(false);
         } else {
           c.setPlay(Icons.play_arrow);
-          playTime(start_tempo, stop_time);
+          playTime(start_tempo, stop_time, context);
         }
       },
       style: NeumorphicStyle(

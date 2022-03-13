@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:opentdcsapp/controller/ctdcs.dart';
 import 'package:opentdcsapp/screens/profile.dart';
+
+final c = Get.put(ControllerTdcs.to);
 
 class SamplePage extends StatefulWidget {
   const SamplePage({Key? key}) : super(key: key);
@@ -68,7 +71,7 @@ class _SamplePageState extends State<SamplePage> {
                           height: 150,
                         ),
                         Text(
-                          "Nenhuma pessoa cadastrada",
+                          "Nenhuma amostra cadastrada",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
@@ -107,6 +110,13 @@ class _SamplePageState extends State<SamplePage> {
                                     ),
                                     subtitle:
                                         Text('${contacts[index].protolSample}'),
+                                    trailing: TextButton(
+                                      child: Text("Selecionar"),
+                                      onPressed: () {
+                                        c.setSampleName(
+                                            '${contacts[index].name}');
+                                      },
+                                    ),
                                     leading: CircleAvatar(
                                         backgroundColor: Colors.blue,
                                         child: Text(
@@ -126,7 +136,9 @@ class _SamplePageState extends State<SamplePage> {
 void _onTapItem(BuildContext context, Contact post) {
   // Scaffold.of(context).showSnackBar(
   //     new SnackBar(content: new Text("Tap on " + ' - ' + post.name)));
-  Get.to(ProfileSample(name: post.name,));
+  Get.to(ProfileSample(
+    name: post.name,
+  ));
 }
 
 class Contact {

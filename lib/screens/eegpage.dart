@@ -108,7 +108,7 @@ class _EEGPageState extends State<EEGPage> {
           ),
           //GridView com os canais/loading/radar chart
           Expanded(
-            flex: 1,
+            flex: 2,
             child: GridView.count(
               crossAxisCount: 3,
               childAspectRatio: (2 / 1),

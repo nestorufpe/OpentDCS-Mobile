@@ -6,7 +6,7 @@ class AddSample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Adicionar amostra")),
+      appBar: AppBar(title: Text("Adicionar nova amostra")),
       body: Neumorphic(
         padding: EdgeInsets.all(8),
         margin: EdgeInsets.all(8),
