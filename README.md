@@ -1,16 +1,16 @@
 # opentdcsapp
 
-A new Flutter project.
+App controlador do protótipo OpentDCs.
 
-## Getting Started
+## Tarefas para o teste de usabilidade
 
-This project is a starting point for a Flutter application.
+- 1) Selecione o indivíduo Pedro na tela das amostras
+- 2) Atualize e verifique se todos os canais estão com impedância adequada na tela de leitura de EEG
+- 3) Faça a coleta do EEG por 1 min e salve o resultado
+- 4) Configure o dosagem de tDCS para intensidade de 2 mA, tempo de 30 mim. Ative o modo placebo para o "modo B", protocolo "depressão" 
+- 5) Inicie a tDCS com os parâmetros configurandos (Pause com 15 min e retorne o estímulo)
+- 6) Verefique se a corrente e a resistências reais estão adequadas durante o estímulo
+- 7) Na tela das amostras, selecione o indivíduo Pedro e verifíque como foi aleatorizado o placebo pelo app
+- 8) Ainda na mesma tela, verifique o grafico resultante da avaliação do EEG.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
