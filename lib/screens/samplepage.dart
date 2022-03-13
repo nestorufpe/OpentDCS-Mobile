@@ -13,15 +13,15 @@ class SamplePage extends StatefulWidget {
 }
 
 List<Contact> contacts = [
-  Contact(name: 'Fco José', protolSample: 'Parkison'),
-  Contact(name: 'Jagadeesh', protolSample: 'Cefaleia'),
-  Contact(name: 'Srinivas', protolSample: 'Parkison'),
-  Contact(name: 'Narendra', protolSample: 'Parkison'),
-  Contact(name: 'Sravan ', protolSample: 'Cefaleia'),
-  Contact(name: 'Ranganadh', protolSample: 'Low Back Pain'),
-  Contact(name: 'Karthik', protolSample: 'Low Back Pain'),
-  Contact(name: 'Saranya', protolSample: 'Memória'),
-  Contact(name: 'Mahesh', protolSample: 'Controle Motor'),
+  Contact(name: 'Miguel', protolSample: 'Cefaleia'),
+  Contact(name: 'Arthur', protolSample: 'Parkison'),
+  Contact(name: 'Gael ', protolSample: 'Parkison'),
+  Contact(name: 'Heitor ', protolSample: 'Cefaleia'),
+  Contact(name: 'Theo', protolSample: 'Low Back Pain'),
+  Contact(name: 'Davi', protolSample: 'Low Back Pain'),
+  Contact(name: 'Gabriel', protolSample: 'Memória'),
+  Contact(name: 'Bernardo', protolSample: 'Controle Motor'),
+  Contact(name: 'Pedro', protolSample: 'Depressão'),
 ];
 
 class _SamplePageState extends State<SamplePage> {

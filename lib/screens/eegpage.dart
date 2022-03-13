@@ -110,7 +110,7 @@ class _EEGPageState extends State<EEGPage> {
           Expanded(
             flex: 2,
             child: GridView.count(
-              crossAxisCount: 3,
+              crossAxisCount: 4,
               childAspectRatio: (2 / 1),
               crossAxisSpacing: 4,
               mainAxisSpacing: 4,
