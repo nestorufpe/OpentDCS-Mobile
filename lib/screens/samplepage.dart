@@ -1,6 +1,8 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:opentdcsapp/controller/ctdcs.dart';
+import 'package:opentdcsapp/screens/addsamplepage.dart';
 import 'package:opentdcsapp/screens/profile.dart';
 
 final c = Get.put(ControllerTdcs.to);
@@ -13,15 +15,15 @@ class SamplePage extends StatefulWidget {
 }
 
 List<Contact> contacts = [
-  Contact(name: 'Miguel', protolSample: 'Cefaleia'),
-  Contact(name: 'Arthur', protolSample: 'Parkison'),
-  Contact(name: 'Gael ', protolSample: 'Parkison'),
-  Contact(name: 'Heitor ', protolSample: 'Cefaleia'),
-  Contact(name: 'Theo', protolSample: 'Low Back Pain'),
-  Contact(name: 'Davi', protolSample: 'Low Back Pain'),
-  Contact(name: 'Gabriel', protolSample: 'Memória'),
-  Contact(name: 'Bernardo', protolSample: 'Controle Motor'),
-  Contact(name: 'Pedro', protolSample: 'Depressão'),
+  Contact(name: 'Miguel', protolSample: 'Cefaleia', isSelected: true),
+  Contact(name: 'Arthur', protolSample: 'Parkison', isSelected: false),
+  Contact(name: 'Gael ', protolSample: 'Parkison', isSelected: false),
+  Contact(name: 'Heitor ', protolSample: 'Cefaleia', isSelected: false),
+  Contact(name: 'Theo', protolSample: 'Low Back Pain', isSelected: false),
+  Contact(name: 'Davi', protolSample: 'Low Back Pain', isSelected: false),
+  Contact(name: 'Gabriel', protolSample: 'Memória', isSelected: false),
+  Contact(name: 'Bernardo', protolSample: 'Controle Motor', isSelected: false),
+  Contact(name: 'Pedro', protolSample: 'Depressão', isSelected: false),
 ];
 
 class _SamplePageState extends State<SamplePage> {
@@ -79,7 +81,9 @@ class _SamplePageState extends State<SamplePage> {
                           height: 15,
                         ),
                         ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.to(AddSample());
+                            },
                             child: Text("\u{2795} Adicionar amostra"))
                       ],
                     ))
@@ -98,6 +102,27 @@ class _SamplePageState extends State<SamplePage> {
                                     backgroundColor: Colors.blue,
                                     child: Text(
                                         '${contacts[index].name.substring(0, 1)}')),
+                                trailing: TextButton(
+                                  child: contacts[index].isSelected == false
+                                      ? Text("Selecionar")
+                                      : Text(
+                                          "Selecionado",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                  onPressed: () {
+                                    c.setSampleName('${contacts[index].name}');
+                                    setState(() {
+                                      contacts.forEach((element) {
+                                        if (element.name ==
+                                            contacts[index].name) {
+                                          element.isSelected = true;
+                                        } else {
+                                          element.isSelected = false;
+                                        }
+                                      });
+                                    });
+                                  },
+                                ),
                                 onTap: () =>
                                     _onTapItem(context, contacts[index]),
                               )
@@ -110,17 +135,33 @@ class _SamplePageState extends State<SamplePage> {
                                     ),
                                     subtitle:
                                         Text('${contacts[index].protolSample}'),
-                                    trailing: TextButton(
-                                      child: Text("Selecionar"),
-                                      onPressed: () {
-                                        c.setSampleName(
-                                            '${contacts[index].name}');
-                                      },
-                                    ),
                                     leading: CircleAvatar(
                                         backgroundColor: Colors.blue,
                                         child: Text(
                                             '${contacts[index].name.substring(0, 1)}')),
+                                    trailing: TextButton(
+                                      child: contacts[index].isSelected == false
+                                          ? Text("Selecionar")
+                                          : Text(
+                                              "Selecionado",
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                      onPressed: () {
+                                        c.setSampleName(
+                                            '${contacts[index].name}');
+                                        setState(() {
+                                          contacts.forEach((element) {
+                                            if (element.name ==
+                                                contacts[index].name) {
+                                              element.isSelected = true;
+                                            } else {
+                                              element.isSelected = false;
+                                            }
+                                          });
+                                        });
+                                      },
+                                    ),
                                     onTap: () =>
                                         _onTapItem(context, contacts[index]),
                                   )
@@ -144,6 +185,10 @@ void _onTapItem(BuildContext context, Contact post) {
 class Contact {
   final String name;
   final String protolSample;
+  bool isSelected;
 
-  const Contact({required this.name, required this.protolSample});
+  Contact(
+      {required this.name,
+      required this.protolSample,
+      required this.isSelected});
 }
