@@ -7,7 +7,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:opentdcsapp/controller/ceeg.dart';
 import 'package:opentdcsapp/controller/ctdcs.dart';
 import 'package:opentdcsapp/screens/configtdcs.dart';
 import 'package:opentdcsapp/screens/eegresults.dart';
@@ -18,8 +17,7 @@ import 'package:pausable_timer/pausable_timer.dart';
 import '../screens/eegpage.dart';
 import '../screens/profile.dart';
 
-final c = Get.put(ControllerTdcs.to);
-final ce = Get.put(ControllerEeg());
+final c = Get.find<ControllerTdcs>();
 
 Widget CircleButtonConfig(BuildContext context) {
   return Center(
@@ -119,12 +117,12 @@ void playTime(int start_tempo, int stop_time, BuildContext context) {
         var dialog = await showOkCancelAlertDialog(
             context: context,
             title: 'SALVAR',
-            message: 'Deseija salvar a coleta?',
+            message: 'Deseja salvar a coleta?',
             barrierDismissible: false,
             okLabel: "SIM",
             cancelLabel: "NÃO");
         if (dialog == OkCancelResult.ok) {
-          ce.setEeg(
+          c.setEeg(
             CardsProfile(
               trial: "tDCS",
               type: "Intensidade:  ",

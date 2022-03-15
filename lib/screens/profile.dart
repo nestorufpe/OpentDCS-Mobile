@@ -1,10 +1,9 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
-import 'package:opentdcsapp/controller/ceeg.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:opentdcsapp/controller/ctdcs.dart';
 import 'package:opentdcsapp/screens/eegresults.dart';
-
-final ce = Get.put(ControllerEeg());
 
 class ProfileSample extends StatefulWidget {
   final String name;
@@ -18,31 +17,11 @@ class ProfileSample extends StatefulWidget {
 class _ProfileSampleState extends State<ProfileSample> {
   List<String> data = ["1", "2", "3", "4"];
   final String name;
-
-  List<CardsProfile> cardsInfo = [
-    CardsProfile(
-      trial: "tDCS",
-      type: "Intensidade:  ",
-      typeValue: "2 mA",
-      time: "Tempo: ",
-      timeValue: "20 min",
-      shamElectrodes: "Modo placebo: ",
-      shamElectrodesValue: "B (ECA Parkison)",
-      textBtn: "Ver Placebo",
-    ),
-    CardsProfile(
-      trial: "EEG",
-      type: "Tempo:  ",
-      typeValue: "5 min",
-      time: "Período: ",
-      timeValue: "Antes da tDCS",
-      shamElectrodes: "Eletrodos: ",
-      shamElectrodesValue: "F7, FC5, FC3, Fp1, AFz, Fp2, FC4, FC6",
-      textBtn: "Ver Gráfico",
-    )
-  ];
+  List<CardsProfile> cardsInfo = [];
 
   _ProfileSampleState(this.name);
+  final c = Get.find<ControllerTdcs>();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -96,12 +75,12 @@ class _ProfileSampleState extends State<ProfileSample> {
             ),
             Obx(() => SizedBox(
                   height: MediaQuery.of(context).size.height * 0.6,
-                  child: ce.cardsinfo.isEmpty
+                  child: c.cardsinfo.value.isEmpty
                       ? Text("Nenhuma coleta feita ainda")
                       : ListView.builder(
-                          itemCount: ce.cardsinfo.length,
+                          itemCount: c.cardsinfo.length,
                           itemBuilder: (context, index) {
-                            return ce.cardsinfo[index];
+                            return c.cardsinfo[index];
                           }),
                 ))
           ],
@@ -239,7 +218,7 @@ class CardsProfile extends StatelessWidget {
                     ),
                     TextButton(
                         onPressed: () {
-                          ce.cardsinfo.removeLast();
+                          Get.find<ControllerTdcs>().cardsinfo.removeLast();
                         },
                         child: Text(
                           "Apagar",

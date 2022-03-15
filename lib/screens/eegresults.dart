@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_radar_chart/flutter_radar_chart.dart';
 import 'package:get/get.dart';
-import 'package:opentdcsapp/controller/ceeg.dart';
+import 'package:opentdcsapp/controller/ctdcs.dart';
 import 'package:opentdcsapp/screens/profile.dart';
-
-final ce = Get.put(ControllerEeg());
 
 class EegResults extends StatefulWidget {
   final bool visible;
@@ -16,6 +14,7 @@ class EegResults extends StatefulWidget {
 
 class _EegResultsState extends State<EegResults> {
   final bool visible;
+  final c = Get.find<ControllerTdcs>();
 
   _EegResultsState(this.visible);
 
@@ -59,7 +58,7 @@ class _EegResultsState extends State<EegResults> {
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
                         onPressed: () {
-                          ce.setEeg(CardsProfile(
+                          c.setEeg(CardsProfile(
                             trial: "EEG",
                             type: "Tempo:  ",
                             typeValue: "5 min",

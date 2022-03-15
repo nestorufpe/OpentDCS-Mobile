@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../screens/profile.dart';
+
 class ControllerTdcs extends GetxController {
   var current = "- mA".obs;
   var currentReal = 0.0.obs;
@@ -15,12 +17,17 @@ class ControllerTdcs extends GetxController {
   var colormA = Colors.red.obs;
   var colorK = Colors.red.obs;
   var nameSample = "Selecione uma amostra".obs;
+  var cardsinfo = [].obs;
 
   static ControllerTdcs get to => Get.find<ControllerTdcs>();
 
   @override
   void onInit() {
     super.onInit();
+  }
+
+  setEeg(CardsProfile ls) {
+    cardsinfo.value.add(ls);
   }
 
   setSampleName(String s) {

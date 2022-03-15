@@ -49,7 +49,6 @@ class MyApp extends StatelessWidget {
           style: OutlinedButton.styleFrom(primary: Colors.black),
         ),
       ),
-      // home: MyHomePage(),
       initialRoute: '/',
       getPages: Routes.routes,
       builder: EasyLoading.init(),
