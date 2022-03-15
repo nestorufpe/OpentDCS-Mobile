@@ -70,7 +70,7 @@ Widget CircleButtonRts(BuildContext context, Function()? function) {
 void playCurrent(double start_intensity, double stop_intensity) {
   late final PausableTimer timer;
   timer = PausableTimer(
-    Duration(seconds: 1),
+    Duration(milliseconds: 500),
     () {
       start_intensity = start_intensity <= stop_intensity
           ? start_intensity += 0.1
@@ -80,6 +80,7 @@ void playCurrent(double start_intensity, double stop_intensity) {
         timer
           ..reset()
           ..start();
+        c.setColormA(Colors.red);
       }
       //stop
       else {
@@ -96,7 +97,7 @@ void playCurrent(double start_intensity, double stop_intensity) {
 void playTime(int start_tempo, int stop_time, BuildContext context) {
   late final PausableTimer timer;
   timer = PausableTimer(
-    Duration(seconds: 1),
+    Duration(seconds: 2),
     () async {
       start_tempo = start_tempo >= stop_time ? start_tempo -= 1 : start_tempo;
 
@@ -141,6 +142,7 @@ void playTime(int start_tempo, int stop_time, BuildContext context) {
 
       if (c.bisPlay.value == false) {
         timer.pause();
+        c.setCurrentReal(0.0);
       }
 
       if (c.bisStop.value == true) {
@@ -157,15 +159,16 @@ void playTime(int start_tempo, int stop_time, BuildContext context) {
 void playResistence(int start_r, int stop_r) {
   late final PausableTimer timer;
   timer = PausableTimer(
-    Duration(seconds: 1),
+    Duration(milliseconds: 400),
     () {
-      start_r = start_r >= stop_r ? start_r -= 4 : start_r;
+      start_r = start_r >= stop_r ? start_r -= 1 : start_r;
 
       //atualiza
       if (start_r >= stop_r) {
         timer
           ..reset()
           ..start();
+        c.setColorK(Colors.red);
       }
       //stop
       else {

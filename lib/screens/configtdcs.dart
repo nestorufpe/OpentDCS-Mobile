@@ -21,11 +21,11 @@ List<String> _intensity = [
   "2.0 mA",
 ];
 
-String _current = "";
+String _currentv = "";
 String _modev = "";
 String _shamv = "";
-
-int _tempo = 0;
+String _protocolv = "";
+int _tempov = 0;
 
 class _ConfigTdcsState extends State<ConfigTdcs> {
   List<String> _time = ["10 min", "15 min", "20 min", "30 min", "40 min"];
@@ -60,6 +60,7 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
       itemHeight: 56,
       value: value,
       itemBuilder: (context, value) {
+        _protocolv = value;
         return Text(value);
       },
     );
@@ -86,9 +87,7 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
   }
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-  final GetStorage box = GetStorage();
-  final c = Get.put(ControllerTdcs());
-
+  final c = Get.find<ControllerTdcs>();
   @override
   Widget build(BuildContext context) {
     final appBar = PreferredSize(
@@ -164,7 +163,7 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                                                 _showScaffold();
                                               },
                                               values: _sham,
-                                              defaultItemIndex: selectedSham,
+                                              // defaultItemIndex: selectedSham,
                                               itemBuilder: (String value) =>
                                                   getDropDownMenuItemSham(
                                                       value),
@@ -172,9 +171,9 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                                                   _getDslDecoration(),
                                               onItemSelectedListener:
                                                   (item, index, context) {
-                                                setState(() {
-                                                  selectedSham = index;
-                                                });
+                                                // setState(() {
+                                                //   selectedSham = index;
+                                                // });
                                               }),
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 8))),
@@ -197,8 +196,8 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                                               onUserTappedListener: () {
                                                 _showScaffold();
                                               },
-                                              defaultItemIndex:
-                                                  selectedProtocol,
+                                              // defaultItemIndex:
+                                              //     selectedProtocol,
                                               itemBuilder: (String value) =>
                                                   getDropDownMenuItemProtocol(
                                                       value),
@@ -206,9 +205,9 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                                                   _getDslDecoration(),
                                               onItemSelectedListener:
                                                   (item, index, context) {
-                                                setState(() {
-                                                  selectedProtocol = index;
-                                                });
+                                                // setState(() {
+                                                //   selectedProtocol = index;
+                                                // });
                                               }),
                                           padding: EdgeInsets.only(left: 22))),
                                   Padding(
@@ -234,16 +233,16 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                                               onUserTappedListener: () {
                                                 _showScaffold();
                                               },
-                                              defaultItemIndex: selectedMode,
+                                              // defaultItemIndex: selectedMode,
                                               itemBuilder: (String value) =>
                                                   getDropDownMenuMode(value),
                                               focusedItemDecoration:
                                                   _getDslDecoration(),
                                               onItemSelectedListener:
                                                   (item, index, context) {
-                                                setState(() {
-                                                  selectedMode = index;
-                                                });
+                                                // setState(() {
+                                                //   selectedMode = index;
+                                                // });
                                               }),
                                           padding: EdgeInsets.only(left: 22))),
                                   Padding(
@@ -278,12 +277,9 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                           child: const Text('USAR ESSA CONFIGURAÇÃO',
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           onPressed: () {
-                            box.write("current", _current);
-                            box.write("time", _tempo);
-                            box.write("mode", _modev);
-                            c.setCurrent(box.read("current"));
+                            c.setCurrent(_currentv);
                             c.setCurrentReal(0.0);
-                            c.setTime(box.read("time"));
+                            c.setTime(_tempov);
                             c.setMode(_modev.substring(5, 6));
                             c.setSham(_shamv);
                             Get.back();
@@ -357,7 +353,6 @@ class IntensitySelector extends StatelessWidget {
                     child: Padding(
                         child: DirectSelectList<String>(
                           values: data,
-                          defaultItemIndex: 0,
                           onUserTappedListener: () {},
                           itemBuilder: (String value) =>
                               getDropDownMenuItemIntensity(value),
@@ -381,7 +376,7 @@ class IntensitySelector extends StatelessWidget {
       itemHeight: 56,
       value: value,
       itemBuilder: (context, value) {
-        _current = value;
+        _currentv = value;
         return Text(value);
       },
     );
@@ -445,8 +440,8 @@ class TimeSelector extends StatelessWidget {
                     child: Padding(
                         child: DirectSelectList<String>(
                           values: data,
-                          defaultItemIndex: 0,
                           onUserTappedListener: () {},
+                          onItemSelectedListener: (item, index, context) {},
                           itemBuilder: (String value) =>
                               getDropDownMenuItemTime(value),
                           focusedItemDecoration: _getDslDecoration(),
@@ -469,7 +464,7 @@ class TimeSelector extends StatelessWidget {
         itemHeight: 56,
         value: value,
         itemBuilder: (context, value) {
-          _tempo = int.parse(value.substring(0, 2));
+          _tempov = int.parse(value.substring(0, 2));
           return Text(value);
         });
   }
