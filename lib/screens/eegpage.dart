@@ -53,59 +53,54 @@ class _EEGPageState extends State<EEGPage> {
       body: Column(
         children: [
           //Indicação da resistência
-          SingleChildScrollView(
-            child: Expanded(
-                flex: 1,
-                child: Column(
-                  children: [
-                    Center(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            "Ajuste de Impedância",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 45, vertical: 14),
-                            child: Text(
-                              "Ajuste o contato dos eletrodos com o escalpo para reduzir a resitência. Os canais em vermelho são os de impedância elevada.",
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                  color: Colors.black54, fontSize: 12),
-                            ),
-                          ),
-                        ],
+          Expanded(
+              flex: 1,
+              child: Column(
+                children: [
+                  Column(
+                    children: [
+                      SizedBox(
+                        height: 8,
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.circle,
-                          color: Colors.red,
+                      Text(
+                        "Ajuste de Impedância",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 45, vertical: 14),
+                        child: Text(
+                          "Ajuste o contato dos eletrodos com o escalpo para reduzir a resitência. Os canais em vermelho são os de impedância elevada.",
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(color: Colors.black54, fontSize: 12),
                         ),
-                        Text("Ruim"),
-                        SizedBox(
-                          width: 14,
-                        ),
-                        Icon(
-                          Icons.circle,
-                          color: Colors.green,
-                        ),
-                        Text("Bom"),
-                      ],
-                    ),
-                  ],
-                )),
-          ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.circle,
+                        color: Colors.red,
+                      ),
+                      Text("Ruim"),
+                      SizedBox(
+                        width: 14,
+                      ),
+                      Icon(
+                        Icons.circle,
+                        color: Colors.green,
+                      ),
+                      Text("Bom"),
+                    ],
+                  ),
+                ],
+              )),
           //GridView com os canais/loading/radar chart
           Expanded(
             flex: 2,
