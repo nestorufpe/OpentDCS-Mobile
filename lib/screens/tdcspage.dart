@@ -49,15 +49,16 @@ class TDCSPage extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: Obx(() => Row(
-                  children: [
-                    Expanded(
-                        flex: 2,
-                        child: ContainerNeuValues(context,
-                            c.currentReal.value.toString().substring(0, 3))),
-                    Expanded(flex: 1, child: CircleBtnPlay(context))
-                  ],
-                )),
+            child: Row(
+              children: [
+                Expanded(
+                    flex: 2,
+                    child: ContainerNeuValues(
+                      context,
+                    )),
+                Expanded(flex: 1, child: CircleBtnPlay(context))
+              ],
+            ),
           )
         ],
       )),

@@ -305,7 +305,7 @@ Widget ContainerNeu(BuildContext context) {
   );
 }
 
-Widget ContainerNeuValues(BuildContext context, String current) {
+Widget ContainerNeuValues(BuildContext context) {
   return Row(
     children: [
       Expanded(
@@ -332,18 +332,21 @@ Widget ContainerNeuValues(BuildContext context, String current) {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    current,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-                  ),
+                  Obx(() => Text(
+                        c.currentReal.value <= 0.1
+                            ? c.currentReal.value.toString().substring(0, 1)
+                            : c.currentReal.value.toString().substring(0, 3),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 24),
+                      )),
                   SizedBox(
                     height: 10,
                   ),
-                  Icon(
-                    Icons.circle,
-                    size: 12,
-                    color: c.colormA.value,
-                  )
+                  Obx(() => Icon(
+                        Icons.circle,
+                        size: 12,
+                        color: c.colormA.value,
+                      ))
                 ],
               ),
             ],
@@ -374,18 +377,19 @@ Widget ContainerNeuValues(BuildContext context, String current) {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    "${c.resistence.value}",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-                  ),
+                  Obx(() => Text(
+                        "${c.resistence.value}",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 24),
+                      )),
                   SizedBox(
                     height: 10,
                   ),
-                  Icon(
-                    Icons.circle,
-                    size: 12,
-                    color: c.colorK.value,
-                  )
+                  Obx(() => Icon(
+                        Icons.circle,
+                        size: 12,
+                        color: c.colorK.value,
+                      ))
                 ],
               ),
             ],
@@ -416,10 +420,11 @@ Widget ContainerNeuValues(BuildContext context, String current) {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    c.sham.value == "NÃO" ? "NÃO" : c.mode.value,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-                  ),
+                  Obx(() => Text(
+                        c.sham.value == "NÃO" ? "NÃO" : c.mode.value,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 24),
+                      )),
                   SizedBox(
                     height: 10,
                   ),
