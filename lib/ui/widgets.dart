@@ -216,11 +216,11 @@ Widget CircleBtnPlay(BuildContext context) {
           color: Colors.white),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: Icon(
-          c.isPlay.value,
-          color: Colors.black,
-          size: 44,
-        ),
+        child: Obx(() => Icon(
+              c.isPlay.value,
+              color: Colors.black,
+              size: 44,
+            )),
       ),
     ),
   );
