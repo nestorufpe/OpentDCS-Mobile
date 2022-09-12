@@ -19,17 +19,67 @@ import '../screens/profile.dart';
 
 final c = Get.find<ControllerTdcs>();
 
+Widget SelectStudy(BuildContext context) {
+  String _dropdownValue = "Dash";
+  List<String> dropDownOptions = [
+    "Dash",
+    "Sparky",
+    "Snoo",
+    "Clippy",
+  ];
+  return DropdownButton(
+    items: dropDownOptions.map<DropdownMenuItem<String>>((String mascot) {
+      return DropdownMenuItem<String>(child: Text(mascot), value: mascot);
+    }).toList(),
+    value: _dropdownValue,
+    onChanged: (String? selectedValue) {
+      if (selectedValue is String) {
+        _dropdownValue = selectedValue;
+        ;
+      }
+    },
+    // Customizatons
+    //iconSize: 42.0,
+    iconEnabledColor: Colors.blue,
+    //icon: const Icon(Icons.flutter_dash),
+    isExpanded: true,
+    style: const TextStyle(
+      color: Colors.black,
+    ),
+  );
+}
+
 Widget CircleButtonConfig(BuildContext context) {
   return Center(
     child: NeumorphicButton(
       onPressed: () {
-        Get.to(ConfigTdcs(), transition: Transition.rightToLeft);
+        // Get.to(ConfigTdcs(), transition: Transition.rightToLeft);
 
-        c.setIsStop(true);
-        c.setPlay(Icons.play_arrow);
-        c.setCurrentReal(0.0);
-        c.setTime(0);
-        c.setStop(Icons.settings);
+        // c.setIsStop(true);
+        // c.setPlay(Icons.play_arrow);
+        // c.setCurrentReal(0.0);
+        // c.setTime(0);
+        // c.setStop(Icons.settings);
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Selecione o estudo'),
+                content: SelectStudy(context),
+                actions: [
+                  FlatButton(
+                    textColor: Colors.blue,
+                    onPressed: () {},
+                    child: Text('CANCELAR'),
+                  ),
+                  FlatButton(
+                    textColor: Colors.blue,
+                    onPressed: () {},
+                    child: Text('AVANÇAR'),
+                  ),
+                ],
+              );
+            });
       },
       style: NeumorphicStyle(
           shape: NeumorphicShape.flat,
