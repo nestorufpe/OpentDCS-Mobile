@@ -38,6 +38,7 @@ dependencies:
   flutter_radar_chart: ^0.2.1
   get_storage:
   pausable_timer:
+  dropdown_search: ^3.0.1
 
 dev_dependencies:
   flutter_test:

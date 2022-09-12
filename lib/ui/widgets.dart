@@ -13,6 +13,7 @@ import 'package:opentdcsapp/screens/eegresults.dart';
 import 'package:opentdcsapp/ui/seek.dart';
 import 'package:opentdcsapp/utils/custom_icons.dart';
 import 'package:pausable_timer/pausable_timer.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 
 import '../screens/eegpage.dart';
 import '../screens/profile.dart';
@@ -20,32 +21,26 @@ import '../screens/profile.dart';
 final c = Get.find<ControllerTdcs>();
 
 Widget SelectStudy(BuildContext context) {
-  String _dropdownValue = "Dash";
-  List<String> dropDownOptions = [
-    "Dash",
-    "Sparky",
-    "Snoo",
-    "Clippy",
-  ];
-  return DropdownButton(
-    items: dropDownOptions.map<DropdownMenuItem<String>>((String mascot) {
-      return DropdownMenuItem<String>(child: Text(mascot), value: mascot);
-    }).toList(),
-    value: _dropdownValue,
-    onChanged: (String? selectedValue) {
-      if (selectedValue is String) {
-        _dropdownValue = selectedValue;
-        ;
-      }
-    },
-    // Customizatons
-    //iconSize: 42.0,
-    iconEnabledColor: Colors.blue,
-    //icon: const Icon(Icons.flutter_dash),
-    isExpanded: true,
-    style: const TextStyle(
-      color: Colors.black,
+  return DropdownSearch<String>(
+    items: ["ECA cefaleia", "Low back pain", "Depressão", "Parkison"],
+    dropdownSearchDecoration: InputDecoration(
+      labelText: "Meus estudos",
+      // hintText: "country in menu mode",
     ),
+    onChanged: print,
+    selectedItem: "ECA cefaleia",
+  );
+}
+
+Widget SelectSample(BuildContext context) {
+  return DropdownSearch<String>(
+    items: ["José", "João", "Carlos", "Paulo", "Luiz", "Marcos", "Rafael"],
+    dropdownSearchDecoration: InputDecoration(
+      labelText: "Meus estudos",
+      // hintText: "country in menu mode",
+    ),
+    onChanged: print,
+    selectedItem: "José",
   );
 }
 
@@ -69,12 +64,40 @@ Widget CircleButtonConfig(BuildContext context) {
                 actions: [
                   FlatButton(
                     textColor: Colors.blue,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
                     child: Text('CANCELAR'),
                   ),
                   FlatButton(
                     textColor: Colors.blue,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Selecione a amostra'),
+                              content: SelectSample(context),
+                              actions: [
+                                FlatButton(
+                                  textColor: Colors.blue,
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text('CANCELAR'),
+                                ),
+                                FlatButton(
+                                  textColor: Colors.blue,
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text('SELECIONAR'),
+                                ),
+                              ],
+                            );
+                          });
+                    },
                     child: Text('AVANÇAR'),
                   ),
                 ],
