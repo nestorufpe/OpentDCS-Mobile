@@ -16,7 +16,7 @@ class ControllerTdcs extends GetxController {
   var bisStop = false.obs;
   var colormA = Colors.red.obs;
   var colorK = Colors.red.obs;
-  var nameSample = "Selecione uma amostra".obs;
+  var nameSample = "Criar novo estudo".obs;
   var cardsinfo = [].obs;
 
   static ControllerTdcs get to => Get.find<ControllerTdcs>();

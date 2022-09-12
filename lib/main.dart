@@ -5,11 +5,11 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:opentdcsapp/controller/ctdcs.dart';
 import 'package:opentdcsapp/screens/addsamplepage.dart';
-import 'package:opentdcsapp/screens/samplepage.dart';
+import 'package:opentdcsapp/screens/samplepage_study.dart';
 import 'package:opentdcsapp/utils/custom_icons.dart';
 import 'screens/tdcspage.dart';
 import 'screens/eegpage.dart';
-import 'screens/samplepage.dart';
+import 'screens/samplepage_study.dart';
 import 'utils/routes.dart';
 
 final c = Get.put(ControllerTdcs.to);

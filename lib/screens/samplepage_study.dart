@@ -15,15 +15,38 @@ class SamplePage extends StatefulWidget {
 }
 
 List<Contact> contacts = [
-  Contact(name: 'Miguel', protolSample: 'Cefaleia', isSelected: true),
-  Contact(name: 'Arthur', protolSample: 'Parkison', isSelected: false),
-  Contact(name: 'Gael ', protolSample: 'Parkison', isSelected: false),
-  Contact(name: 'Heitor ', protolSample: 'Cefaleia', isSelected: false),
-  Contact(name: 'Theo', protolSample: 'Low Back Pain', isSelected: false),
-  Contact(name: 'Davi', protolSample: 'Low Back Pain', isSelected: false),
-  Contact(name: 'Gabriel', protolSample: 'Memória', isSelected: false),
-  Contact(name: 'Bernardo', protolSample: 'Controle Motor', isSelected: false),
-  Contact(name: 'Pedro', protolSample: 'Depressão', isSelected: false),
+  Contact(
+      name: 'Parkison',
+      protolSample: 'Amostra: 60; Protocolso: 3',
+      isSelected: true),
+  Contact(
+      name: 'Fibromialgia',
+      protolSample: 'Amostra: 30; Protocolso: 2',
+      isSelected: false),
+  Contact(
+      name: 'AVE ',
+      protolSample: 'Amostra: 25; Protocolso: 5',
+      isSelected: false),
+  Contact(
+      name: 'Depressão ',
+      protolSample: 'Amostra: 15; Protocolso: 4',
+      isSelected: false),
+  Contact(
+      name: 'Estudo 1',
+      protolSample: 'Amostra: 10; Protocolso: 2',
+      isSelected: false),
+  Contact(
+      name: 'Estudo 2',
+      protolSample: 'Amostra: 50; Protocolso: 2',
+      isSelected: false),
+  Contact(
+      name: 'Estudo 3',
+      protolSample: 'Amostra: 35; Protocolso: 2',
+      isSelected: false),
+  Contact(
+      name: 'Estudo 4',
+      protolSample: 'Amostra: 40; Protocolso: 4',
+      isSelected: false),
 ];
 
 class _SamplePageState extends State<SamplePage> {
@@ -57,7 +80,7 @@ class _SamplePageState extends State<SamplePage> {
             child: TextField(
               controller: searchController,
               decoration: InputDecoration(
-                hintText: 'Buscar pelo nome',
+                hintText: 'Buscar estudo',
                 contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(32.0)),
@@ -102,27 +125,27 @@ class _SamplePageState extends State<SamplePage> {
                                     backgroundColor: Colors.blue,
                                     child: Text(
                                         '${contacts[index].name.substring(0, 1)}')),
-                                trailing: TextButton(
-                                  child: contacts[index].isSelected == false
-                                      ? Text("Selecionar")
-                                      : Text(
-                                          "Selecionado",
-                                          style: TextStyle(color: Colors.black),
-                                        ),
-                                  onPressed: () {
-                                    c.setSampleName('${contacts[index].name}');
-                                    setState(() {
-                                      contacts.forEach((element) {
-                                        if (element.name ==
-                                            contacts[index].name) {
-                                          element.isSelected = true;
-                                        } else {
-                                          element.isSelected = false;
-                                        }
-                                      });
-                                    });
-                                  },
-                                ),
+                                // trailing: TextButton(
+                                //   child: contacts[index].isSelected == false
+                                //       ? Text("Selecionar")
+                                //       : Text(
+                                //           "Selecionado",
+                                //           style: TextStyle(color: Colors.black),
+                                //         ),
+                                //   onPressed: () {
+                                //     c.setSampleName('${contacts[index].name}');
+                                //     setState(() {
+                                //       contacts.forEach((element) {
+                                //         if (element.name ==
+                                //             contacts[index].name) {
+                                //           element.isSelected = true;
+                                //         } else {
+                                //           element.isSelected = false;
+                                //         }
+                                //       });
+                                //     });
+                                //   },
+                                // ),
                                 onTap: () =>
                                     _onTapItem(context, contacts[index]),
                               )
@@ -139,29 +162,29 @@ class _SamplePageState extends State<SamplePage> {
                                         backgroundColor: Colors.blue,
                                         child: Text(
                                             '${contacts[index].name.substring(0, 1)}')),
-                                    trailing: TextButton(
-                                      child: contacts[index].isSelected == false
-                                          ? Text("Selecionar")
-                                          : Text(
-                                              "Selecionado",
-                                              style: TextStyle(
-                                                  color: Colors.black),
-                                            ),
-                                      onPressed: () {
-                                        c.setSampleName(
-                                            '${contacts[index].name}');
-                                        setState(() {
-                                          contacts.forEach((element) {
-                                            if (element.name ==
-                                                contacts[index].name) {
-                                              element.isSelected = true;
-                                            } else {
-                                              element.isSelected = false;
-                                            }
-                                          });
-                                        });
-                                      },
-                                    ),
+                                    // trailing: TextButton(
+                                    //   child: contacts[index].isSelected == false
+                                    //       ? Text("Selecionar")
+                                    //       : Text(
+                                    //           "Selecionado",
+                                    //           style: TextStyle(
+                                    //               color: Colors.black),
+                                    //         ),
+                                    //   onPressed: () {
+                                    //     c.setSampleName(
+                                    //         '${contacts[index].name}');
+                                    //     setState(() {
+                                    //       contacts.forEach((element) {
+                                    //         if (element.name ==
+                                    //             contacts[index].name) {
+                                    //           element.isSelected = true;
+                                    //         } else {
+                                    //           element.isSelected = false;
+                                    //         }
+                                    //       });
+                                    //     });
+                                    //   },
+                                    // ),
                                     onTap: () =>
                                         _onTapItem(context, contacts[index]),
                                   )
