@@ -91,8 +91,13 @@ Widget CircleButtonConfig(BuildContext context) {
                                   textColor: Colors.blue,
                                   onPressed: () {
                                     Navigator.of(context).pop();
+                                    c.setCurrent("0.4mA");
+                                    c.setCurrentReal(0.0);
+                                    c.setTime(10);
+                                    c.setMode("m");
+                                    c.setSham("s");
                                   },
-                                  child: Text('SELECIONAR'),
+                                  child: Text('CONCLUIR'),
                                 ),
                               ],
                             );
