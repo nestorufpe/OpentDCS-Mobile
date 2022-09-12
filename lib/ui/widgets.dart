@@ -17,6 +17,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 
 import '../screens/eegpage.dart';
 import '../screens/profile.dart';
+import '../screens/tdcspage.dart';
 
 final c = Get.find<ControllerTdcs>();
 
@@ -48,13 +49,11 @@ Widget CircleButtonConfig(BuildContext context) {
   return Center(
     child: NeumorphicButton(
       onPressed: () {
-        // Get.to(ConfigTdcs(), transition: Transition.rightToLeft);
-
-        // c.setIsStop(true);
-        // c.setPlay(Icons.play_arrow);
-        // c.setCurrentReal(0.0);
-        // c.setTime(0);
-        // c.setStop(Icons.settings);
+        c.setIsStop(true);
+        c.setPlay(Icons.play_arrow);
+        c.setCurrentReal(0.0);
+        c.setTime(0);
+        c.setStop(Icons.settings);
         showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -474,49 +473,49 @@ Widget ContainerNeuValues(BuildContext context) {
           ),
         ),
       ),
-      Expanded(
-        flex: 1,
-        child: Neumorphic(
-          margin: EdgeInsets.symmetric(horizontal: 5),
-          padding: EdgeInsets.symmetric(vertical: 8),
-          style: NeumorphicStyle(
-            color: Colors.white,
-            shape: NeumorphicShape.flat,
-            boxShape: NeumorphicBoxShape.roundRect(
-                BorderRadius.all(Radius.circular(12))),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                children: [
-                  Text(
-                    "Sham",
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Obx(() => Text(
-                        c.sham.value == "NÃO" ? "NÃO" : c.mode.value,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 24),
-                      )),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Icon(
-                    MdiIcons.humanWhiteCane,
-                    size: 12,
-                    color: Colors.black,
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+      // Expanded(
+      //   flex: 1,
+      //   child: Neumorphic(
+      //     margin: EdgeInsets.symmetric(horizontal: 5),
+      //     padding: EdgeInsets.symmetric(vertical: 8),
+      //     style: NeumorphicStyle(
+      //       color: Colors.white,
+      //       shape: NeumorphicShape.flat,
+      //       boxShape: NeumorphicBoxShape.roundRect(
+      //           BorderRadius.all(Radius.circular(12))),
+      //     ),
+      //     child: Column(
+      //       mainAxisSize: MainAxisSize.min,
+      //       crossAxisAlignment: CrossAxisAlignment.center,
+      //       children: [
+      //         Column(
+      //           children: [
+      //             Text(
+      //               "Sham",
+      //               style: TextStyle(fontSize: 14),
+      //             ),
+      //             SizedBox(
+      //               height: 10,
+      //             ),
+      //             Obx(() => Text(
+      //                   c.sham.value == "NÃO" ? "NÃO" : c.mode.value,
+      //                   style: TextStyle(
+      //                       fontWeight: FontWeight.bold, fontSize: 24),
+      //                 )),
+      //             SizedBox(
+      //               height: 10,
+      //             ),
+      //             Icon(
+      //               MdiIcons.humanWhiteCane,
+      //               size: 12,
+      //               color: Colors.black,
+      //             )
+      //           ],
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
     ],
   );
 }
