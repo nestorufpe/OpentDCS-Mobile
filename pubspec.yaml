@@ -39,6 +39,7 @@ dependencies:
   get_storage:
   pausable_timer:
   dropdown_search: ^3.0.1
+  animated_floating_buttons: ^0.0.2
 
 dev_dependencies:
   flutter_test:

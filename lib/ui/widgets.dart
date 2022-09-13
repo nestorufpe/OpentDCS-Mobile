@@ -61,15 +61,21 @@ Widget CircleButtonConfig(BuildContext context) {
                 title: Text('Selecione o estudo'),
                 content: SelectStudy(context),
                 actions: [
-                  FlatButton(
-                    textColor: Colors.blue,
+                  TextButton(
+                    style: ButtonStyle(
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(Colors.blue),
+                    ),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                     child: Text('CANCELAR'),
                   ),
-                  FlatButton(
-                    textColor: Colors.blue,
+                  TextButton(
+                    style: ButtonStyle(
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(Colors.blue),
+                    ),
                     onPressed: () {
                       Navigator.of(context).pop();
                       showDialog(
@@ -79,15 +85,23 @@ Widget CircleButtonConfig(BuildContext context) {
                               title: Text('Selecione a amostra'),
                               content: SelectSample(context),
                               actions: [
-                                FlatButton(
-                                  textColor: Colors.blue,
+                                TextButton(
+                                  style: ButtonStyle(
+                                    foregroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.blue),
+                                  ),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
                                   child: Text('CANCELAR'),
                                 ),
-                                FlatButton(
-                                  textColor: Colors.blue,
+                                TextButton(
+                                  style: ButtonStyle(
+                                    foregroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.blue),
+                                  ),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                     c.setCurrent("0.4mA");

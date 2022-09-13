@@ -4,54 +4,66 @@ import 'package:get/get.dart';
 import 'package:opentdcsapp/controller/ctdcs.dart';
 import 'package:opentdcsapp/screens/addsamplepage.dart';
 import 'package:opentdcsapp/screens/profile.dart';
+import 'package:animated_floating_buttons/animated_floating_buttons.dart';
 
 final c = Get.put(ControllerTdcs.to);
 
-class SamplePageProtocol extends StatefulWidget {
-  const SamplePageProtocol({Key? key}) : super(key: key);
+final GlobalKey<AnimatedFloatingActionButtonState> key =
+    GlobalKey<AnimatedFloatingActionButtonState>();
 
-  @override
-  State<SamplePageProtocol> createState() => _SamplePageProtocolState();
+Widget float1() {
+  return Container(
+    child: FloatingActionButton(
+      onPressed: null,
+      heroTag: "btn1",
+      tooltip: 'Adicionar amostra',
+      child: Icon(Icons.person_add),
+    ),
+  );
 }
 
-List<Contact> contacts = [
-  Contact(
-      name: 'Parkison',
-      protolSample: 'Amostra: 60; Protocolso: 3',
-      isSelected: true),
-  Contact(
-      name: 'Fibromialgia',
-      protolSample: 'Amostra: 30; Protocolso: 2',
-      isSelected: false),
-  Contact(
-      name: 'AVE ',
-      protolSample: 'Amostra: 25; Protocolso: 5',
-      isSelected: false),
-  Contact(
-      name: 'Depressão ',
-      protolSample: 'Amostra: 15; Protocolso: 4',
-      isSelected: false),
-  Contact(
-      name: 'Estudo 1',
-      protolSample: 'Amostra: 10; Protocolso: 2',
-      isSelected: false),
-  Contact(
-      name: 'Estudo 2',
-      protolSample: 'Amostra: 50; Protocolso: 2',
-      isSelected: false),
-  Contact(
-      name: 'Estudo 3',
-      protolSample: 'Amostra: 35; Protocolso: 2',
-      isSelected: false),
-  Contact(
-      name: 'Estudo 4',
-      protolSample: 'Amostra: 40; Protocolso: 4',
-      isSelected: false),
+Widget float2() {
+  return Container(
+    child: FloatingActionButton(
+      onPressed: null,
+      heroTag: "btn2",
+      tooltip: 'Criar novo protocolo',
+      child: Icon(Icons.add),
+    ),
+  );
+}
+
+Widget float3() {
+  return Container(
+    child: FloatingActionButton(
+      onPressed: null,
+      heroTag: "btn3",
+      tooltip: 'Randomizar amostra',
+      child: Icon(Icons.addchart),
+    ),
+  );
+}
+
+class SamplePageProtocol extends StatefulWidget {
+  final String name;
+  const SamplePageProtocol({Key? key, required this.name});
+
+  @override
+  State<SamplePageProtocol> createState() => _SamplePageProtocolState(name);
+}
+
+List<Protocol> protocols = [
+  Protocol(name: 'Placebo', protolSample: 'Amostra: 5', isSelected: true),
+  Protocol(name: 'Ativo 1', protolSample: 'Amostra: 5', isSelected: false),
+  Protocol(name: 'Ativo 2 ', protolSample: 'Amostra: 5', isSelected: false),
 ];
 
 class _SamplePageProtocolState extends State<SamplePageProtocol> {
+  final String name;
   TextEditingController searchController = TextEditingController();
   String filter = "";
+
+  _SamplePageProtocolState(this.name);
 
   @override
   void initState() {
@@ -73,6 +85,14 @@ class _SamplePageProtocolState extends State<SamplePageProtocol> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Column(
+          children: [
+            Text(name),
+          ],
+        ),
+      ),
       body: Column(
         children: [
           Padding(
@@ -80,7 +100,7 @@ class _SamplePageProtocolState extends State<SamplePageProtocol> {
             child: TextField(
               controller: searchController,
               decoration: InputDecoration(
-                hintText: 'Buscar estudo',
+                hintText: 'Buscar protocolo',
                 contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(32.0)),
@@ -88,7 +108,7 @@ class _SamplePageProtocolState extends State<SamplePageProtocol> {
             ),
           ),
           Expanded(
-              child: contacts.isEmpty
+              child: protocols.isEmpty
                   ? Center(
                       child: Column(
                       children: [
@@ -96,7 +116,7 @@ class _SamplePageProtocolState extends State<SamplePageProtocol> {
                           height: 150,
                         ),
                         Text(
-                          "Nenhuma amostra cadastrada",
+                          "Nenhum protocolo cadastrado",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
@@ -111,20 +131,20 @@ class _SamplePageProtocolState extends State<SamplePageProtocol> {
                       ],
                     ))
                   : ListView.builder(
-                      itemCount: contacts.length,
+                      itemCount: protocols.length,
                       itemBuilder: (context, index) {
                         // if filter is null or empty returns all data
                         return filter == ""
                             ? ListTile(
                                 title: Text(
-                                  '${contacts[index].name}',
+                                  '${protocols[index].name}',
                                 ),
                                 subtitle:
-                                    Text('${contacts[index].protolSample}'),
+                                    Text('${protocols[index].protolSample}'),
                                 leading: CircleAvatar(
                                     backgroundColor: Colors.blue,
                                     child: Text(
-                                        '${contacts[index].name.substring(0, 1)}')),
+                                        '${protocols[index].name.substring(0, 1)}')),
                                 // trailing: TextButton(
                                 //   child: contacts[index].isSelected == false
                                 //       ? Text("Selecionar")
@@ -147,21 +167,21 @@ class _SamplePageProtocolState extends State<SamplePageProtocol> {
                                 //   },
                                 // ),
                                 onTap: () =>
-                                    _onTapItem(context, contacts[index]),
+                                    _onTapItem(context, protocols[index]),
                               )
-                            : '${contacts[index].name}'
+                            : '${protocols[index].name}'
                                     .toLowerCase()
                                     .contains(filter.toLowerCase())
                                 ? ListTile(
                                     title: Text(
-                                      '${contacts[index].name}',
+                                      '${protocols[index].name}',
                                     ),
-                                    subtitle:
-                                        Text('${contacts[index].protolSample}'),
+                                    subtitle: Text(
+                                        '${protocols[index].protolSample}'),
                                     leading: CircleAvatar(
                                         backgroundColor: Colors.blue,
                                         child: Text(
-                                            '${contacts[index].name.substring(0, 1)}')),
+                                            '${protocols[index].name.substring(0, 1)}')),
                                     // trailing: TextButton(
                                     //   child: contacts[index].isSelected == false
                                     //       ? Text("Selecionar")
@@ -186,18 +206,27 @@ class _SamplePageProtocolState extends State<SamplePageProtocol> {
                                     //   },
                                     // ),
                                     onTap: () =>
-                                        _onTapItem(context, contacts[index]),
+                                        _onTapItem(context, protocols[index]),
                                   )
                                 : Container();
                       },
                     ))
         ],
       ),
+      floatingActionButton: AnimatedFloatingActionButton(
+          tooltip: "Opções",
+          //Fab list
+          fabButtons: <Widget>[float1(), float2(), float3()],
+          key: key,
+          colorStartAnimation: Colors.blue,
+          colorEndAnimation: Colors.red,
+          animatedIconData: AnimatedIcons.menu_close //To principal button
+          ),
     );
   }
 }
 
-void _onTapItem(BuildContext context, Contact post) {
+void _onTapItem(BuildContext context, Protocol post) {
   // Scaffold.of(context).showSnackBar(
   //     new SnackBar(content: new Text("Tap on " + ' - ' + post.name)));
   Get.to(ProfileSample(
@@ -205,12 +234,12 @@ void _onTapItem(BuildContext context, Contact post) {
   ));
 }
 
-class Contact {
+class Protocol {
   final String name;
   final String protolSample;
   bool isSelected;
 
-  Contact(
+  Protocol(
       {required this.name,
       required this.protolSample,
       required this.isSelected});

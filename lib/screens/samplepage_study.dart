@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:opentdcsapp/controller/ctdcs.dart';
 import 'package:opentdcsapp/screens/addsamplepage.dart';
 import 'package:opentdcsapp/screens/profile.dart';
+import 'package:opentdcsapp/screens/samplepage_protocol.dart';
 
 final c = Get.put(ControllerTdcs.to);
 
@@ -96,7 +97,7 @@ class _SamplePageStudyState extends State<SamplePageStudy> {
                           height: 150,
                         ),
                         Text(
-                          "Nenhuma amostra cadastrada",
+                          "Nenhum estudo cadastrado",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
@@ -200,7 +201,7 @@ class _SamplePageStudyState extends State<SamplePageStudy> {
 void _onTapItem(BuildContext context, Contact post) {
   // Scaffold.of(context).showSnackBar(
   //     new SnackBar(content: new Text("Tap on " + ' - ' + post.name)));
-  Get.to(ProfileSample(
+  Get.to(SamplePageProtocol(
     name: post.name,
   ));
 }

@@ -257,22 +257,22 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
                         height: 12,
                       ),
                       Column(children: <Widget>[
-                        RaisedButton(
-                          child: const Text('\u{2795} NOVO PROTOCOLO SHAM',
-                              style: TextStyle(color: Colors.blueAccent)),
-                          onPressed: () async {
-                            final text = await showTextInputDialog(
-                              context: context,
-                              cancelLabel: "CANCELAR",
-                              textFields: const [
-                                DialogTextField(
-                                  hintText: 'nome do protocolo',
-                                ),
-                              ],
-                              title: 'Protocolo',
-                            );
-                          },
-                        ),
+                        // RaisedButton(
+                        //   child: const Text('\u{2795} NOVO PROTOCOLO SHAM',
+                        //       style: TextStyle(color: Colors.blueAccent)),
+                        //   onPressed: () async {
+                        //     final text = await showTextInputDialog(
+                        //       context: context,
+                        //       cancelLabel: "CANCELAR",
+                        //       textFields: const [
+                        //         DialogTextField(
+                        //           hintText: 'nome do protocolo',
+                        //         ),
+                        //       ],
+                        //       title: 'Protocolo',
+                        //     );
+                        //   },
+                        // ),
                         ElevatedButton(
                           child: const Text('USAR ESSA CONFIGURAÇÃO',
                               style: TextStyle(fontWeight: FontWeight.bold)),
@@ -298,9 +298,9 @@ class _ConfigTdcsState extends State<ConfigTdcs> {
   }
 
   void _showScaffold() {
-    final snackBar =
-        SnackBar(content: Text('Pressione e segure para ver as opções'));
-    scaffoldKey.currentState?.showSnackBar(snackBar);
+    // final snackBar =
+    //     SnackBar(content: Text('Pressione e segure para ver as opções'));
+    // scaffoldKey.currentState?.showSnackBar(snackBar);
   }
 
   Icon _getDropdownIcon() {
