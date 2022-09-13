@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
 _getPage(int page) {
   switch (page) {
     case 0:
-      return SamplePage();
+      return SamplePageStudy();
     case 1:
       return TDCSPage();
     default:

@@ -7,11 +7,11 @@ import 'package:opentdcsapp/screens/profile.dart';
 
 final c = Get.put(ControllerTdcs.to);
 
-class SamplePageStudy extends StatefulWidget {
-  const SamplePageStudy({Key? key}) : super(key: key);
+class SamplePageProtocol extends StatefulWidget {
+  const SamplePageProtocol({Key? key}) : super(key: key);
 
   @override
-  State<SamplePageStudy> createState() => _SamplePageStudyState();
+  State<SamplePageProtocol> createState() => _SamplePageProtocolState();
 }
 
 List<Contact> contacts = [
@@ -49,7 +49,7 @@ List<Contact> contacts = [
       isSelected: false),
 ];
 
-class _SamplePageStudyState extends State<SamplePageStudy> {
+class _SamplePageProtocolState extends State<SamplePageProtocol> {
   TextEditingController searchController = TextEditingController();
   String filter = "";
 

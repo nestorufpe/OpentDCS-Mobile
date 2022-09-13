@@ -37,7 +37,7 @@ Widget SelectSample(BuildContext context) {
   return DropdownSearch<String>(
     items: ["José", "João", "Carlos", "Paulo", "Luiz", "Marcos", "Rafael"],
     dropdownSearchDecoration: InputDecoration(
-      labelText: "Meus estudos",
+      labelText: "Participantes do estudo",
       // hintText: "country in menu mode",
     ),
     onChanged: print,
