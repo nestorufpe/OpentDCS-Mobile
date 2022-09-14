@@ -27,7 +27,12 @@ Widget float2() {
   return Container(
     child: FloatingActionButton(
       onPressed: () {
-        Get.to(ProtocolPage());
+        Get.to(ProtocolPage(
+            protocolName: "",
+            intensity: "Intensidade",
+            duration: "",
+            rampUp: "",
+            rampDown: ""));
       },
       heroTag: "btn2",
       tooltip: 'Criar novo protocolo',
@@ -230,11 +235,14 @@ class _SamplePageProtocolState extends State<SamplePageProtocol> {
 }
 
 void _onTapItem(BuildContext context, Protocol post) {
-  // Scaffold.of(context).showSnackBar(
+  // Scaffold.of(contextf).showSnackBar(
   //     new SnackBar(content: new Text("Tap on " + ' - ' + post.name)));
-  Get.to(ProfileSample(
-    name: post.name,
-  ));
+  Get.to(ProtocolPage(
+      protocolName: post.name,
+      intensity: "0.4 mA",
+      duration: "60",
+      rampUp: "30",
+      rampDown: "10"));
 }
 
 class Protocol {
