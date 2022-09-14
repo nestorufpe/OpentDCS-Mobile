@@ -5,6 +5,7 @@ import 'package:opentdcsapp/controller/ctdcs.dart';
 import 'package:opentdcsapp/screens/addsamplepage.dart';
 import 'package:opentdcsapp/screens/profile.dart';
 import 'package:animated_floating_buttons/animated_floating_buttons.dart';
+import 'package:opentdcsapp/screens/protocol_create_edit.dart';
 
 final c = Get.put(ControllerTdcs.to);
 
@@ -25,7 +26,9 @@ Widget float1() {
 Widget float2() {
   return Container(
     child: FloatingActionButton(
-      onPressed: null,
+      onPressed: () {
+        Get.to(ProtocolPage());
+      },
       heroTag: "btn2",
       tooltip: 'Criar novo protocolo',
       child: Icon(Icons.add),
