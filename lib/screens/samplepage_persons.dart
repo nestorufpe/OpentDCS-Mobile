@@ -6,77 +6,38 @@ import 'package:opentdcsapp/screens/addsamplepage.dart';
 import 'package:opentdcsapp/screens/profile.dart';
 import 'package:animated_floating_buttons/animated_floating_buttons.dart';
 import 'package:opentdcsapp/screens/protocol_create_edit.dart';
-import 'package:opentdcsapp/screens/samplepage_persons.dart';
 
 final c = Get.put(ControllerTdcs.to);
 
 final GlobalKey<AnimatedFloatingActionButtonState> key =
     GlobalKey<AnimatedFloatingActionButtonState>();
 
-Widget float1() {
-  return Container(
-    child: FloatingActionButton(
-      onPressed: () {
-        Get.to(SamplePagePerson(
-          name: "Adicionar amostras no estudo",
-        ));
-      },
-      heroTag: "btn1",
-      tooltip: 'Adicionar amostra para o estudo',
-      child: Icon(Icons.person_add),
-    ),
-  );
-}
-
-Widget float2() {
-  return Container(
-    child: FloatingActionButton(
-      onPressed: () {
-        Get.to(ProtocolPage(
-            protocolName: "",
-            intensity: "Intensidade",
-            duration: "",
-            rampUp: "",
-            rampDown: ""));
-      },
-      heroTag: "btn2",
-      tooltip: 'Criar novo protocolo',
-      child: Icon(Icons.add),
-    ),
-  );
-}
-
-Widget float3() {
-  return Container(
-    child: FloatingActionButton(
-      onPressed: null,
-      heroTag: "btn3",
-      tooltip: 'Randomizar amostra',
-      child: Icon(Icons.addchart),
-    ),
-  );
-}
-
-class SamplePageProtocol extends StatefulWidget {
+class SamplePagePerson extends StatefulWidget {
   final String name;
-  const SamplePageProtocol({Key? key, required this.name});
+  const SamplePagePerson({Key? key, required this.name});
 
   @override
-  State<SamplePageProtocol> createState() => _SamplePageProtocolState(name);
+  State<SamplePagePerson> createState() => _SamplePagePersonState(name);
 }
 
 List<Protocol> protocols = [
-  Protocol(name: 'Placebo', protolSample: 'Amostra: 5', isSelected: true),
-  Protocol(name: 'Ativo 1', protolSample: 'Amostra: 5', isSelected: false),
-  Protocol(name: 'Ativo 2 ', protolSample: 'Amostra: 5', isSelected: false),
+  Protocol(name: 'José', protolSample: '25 anos', isSelected: true),
+  Protocol(name: 'João', protolSample: 'Alguma observação', isSelected: false),
+  Protocol(name: 'Carlos ', protolSample: 'notes', isSelected: false),
+  Protocol(name: 'Paulo ', protolSample: '----', isSelected: false),
+  Protocol(name: 'Luís ', protolSample: '-----', isSelected: false),
+  Protocol(name: 'Pedro ', protolSample: '----', isSelected: false),
+  Protocol(name: 'Marcos ', protolSample: '----', isSelected: false),
+  Protocol(name: 'Rafael ', protolSample: '-----', isSelected: false),
+  Protocol(name: 'Daniel ', protolSample: '----', isSelected: false),
 ];
 
-class _SamplePageProtocolState extends State<SamplePageProtocol> {
+class _SamplePagePersonState extends State<SamplePagePerson> {
   final String name;
   TextEditingController searchController = TextEditingController();
   String filter = "";
 
-  _SamplePageProtocolState(this.name);
+  _SamplePagePersonState(this.name);
 
   @override
   void initState() {
@@ -113,7 +74,7 @@ class _SamplePageProtocolState extends State<SamplePageProtocol> {
             child: TextField(
               controller: searchController,
               decoration: InputDecoration(
-                hintText: 'Buscar protocolo',
+                hintText: 'Buscar amostra',
                 contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(32.0)),
@@ -158,27 +119,29 @@ class _SamplePageProtocolState extends State<SamplePageProtocol> {
                                     backgroundColor: Colors.blue,
                                     child: Text(
                                         '${protocols[index].name.substring(0, 1)}')),
-                                // trailing: TextButton(
-                                //   child: contacts[index].isSelected == false
-                                //       ? Text("Selecionar")
-                                //       : Text(
-                                //           "Selecionado",
-                                //           style: TextStyle(color: Colors.black),
-                                //         ),
-                                //   onPressed: () {
-                                //     c.setSampleName('${contacts[index].name}');
-                                //     setState(() {
-                                //       contacts.forEach((element) {
-                                //         if (element.name ==
-                                //             contacts[index].name) {
-                                //           element.isSelected = true;
-                                //         } else {
-                                //           element.isSelected = false;
-                                //         }
-                                //       });
-                                //     });
-                                //   },
-                                // ),
+                                trailing: TextButton(
+                                  child: protocols[index].isSelected == false
+                                      ? Text("Selecionar")
+                                      : Text(
+                                          "Selecionado",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                  onPressed: () {
+                                    c.setSampleName('${protocols[index].name}');
+                                    setState(() {
+                                      protocols.forEach((element) {
+                                        if (element.name ==
+                                            protocols[index].name) {
+                                          if (element.isSelected == true) {
+                                            element.isSelected = false;
+                                          } else {
+                                            element.isSelected = true;
+                                          }
+                                        }
+                                      });
+                                    });
+                                  },
+                                ),
                                 onTap: () =>
                                     _onTapItem(context, protocols[index]),
                               )
@@ -195,29 +158,30 @@ class _SamplePageProtocolState extends State<SamplePageProtocol> {
                                         backgroundColor: Colors.blue,
                                         child: Text(
                                             '${protocols[index].name.substring(0, 1)}')),
-                                    // trailing: TextButton(
-                                    //   child: contacts[index].isSelected == false
-                                    //       ? Text("Selecionar")
-                                    //       : Text(
-                                    //           "Selecionado",
-                                    //           style: TextStyle(
-                                    //               color: Colors.black),
-                                    //         ),
-                                    //   onPressed: () {
-                                    //     c.setSampleName(
-                                    //         '${contacts[index].name}');
-                                    //     setState(() {
-                                    //       contacts.forEach((element) {
-                                    //         if (element.name ==
-                                    //             contacts[index].name) {
-                                    //           element.isSelected = true;
-                                    //         } else {
-                                    //           element.isSelected = false;
-                                    //         }
-                                    //       });
-                                    //     });
-                                    //   },
-                                    // ),
+                                    trailing: TextButton(
+                                      child:
+                                          protocols[index].isSelected == false
+                                              ? Text("Selecionar")
+                                              : Text(
+                                                  "Selecionado",
+                                                  style: TextStyle(
+                                                      color: Colors.black),
+                                                ),
+                                      onPressed: () {
+                                        c.setSampleName(
+                                            '${protocols[index].name}');
+                                        // setState(() {
+                                        //   protocols.forEach((element) {
+                                        //     if (element.name ==
+                                        //         protocols[index].name) {
+                                        //       element.isSelected = true;
+                                        //     } else {
+                                        //       element.isSelected = false;
+                                        //     }
+                                        //   });
+                                        // });
+                                      },
+                                    ),
                                     onTap: () =>
                                         _onTapItem(context, protocols[index]),
                                   )
@@ -226,15 +190,27 @@ class _SamplePageProtocolState extends State<SamplePageProtocol> {
                     ))
         ],
       ),
-      floatingActionButton: AnimatedFloatingActionButton(
-          tooltip: "Opções",
-          //Fab list
-          fabButtons: <Widget>[float1(), float2(), float3()],
-          key: key,
-          colorStartAnimation: Colors.blue,
-          colorEndAnimation: Colors.red,
-          animatedIconData: AnimatedIcons.menu_close //To principal button
+      bottomNavigationBar: Material(
+        color: Colors.blue,
+        child: InkWell(
+          onTap: () {
+            Get.back();
+          },
+          child: const SizedBox(
+            height: kToolbarHeight,
+            width: double.infinity,
+            child: Center(
+              child: Text(
+                'CRIAR NOVA AMOSTRA',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ),
+        ),
+      ),
     );
   }
 }
@@ -242,12 +218,12 @@ class _SamplePageProtocolState extends State<SamplePageProtocol> {
 void _onTapItem(BuildContext context, Protocol post) {
   // Scaffold.of(contextf).showSnackBar(
   //     new SnackBar(content: new Text("Tap on " + ' - ' + post.name)));
-  Get.to(ProtocolPage(
-      protocolName: post.name,
-      intensity: "0.4 mA",
-      duration: "60",
-      rampUp: "30",
-      rampDown: "10"));
+  // Get.to(ProtocolPage(
+  //     protocolName: post.name,
+  //     intensity: "0.4 mA",
+  //     duration: "60",
+  //     rampUp: "30",
+  //     rampDown: "10"));
 }
 
 class Protocol {
