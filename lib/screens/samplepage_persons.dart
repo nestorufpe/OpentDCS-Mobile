@@ -14,14 +14,15 @@ final GlobalKey<AnimatedFloatingActionButtonState> key =
 
 class SamplePagePerson extends StatefulWidget {
   final String name;
-  const SamplePagePerson({Key? key, required this.name});
+  final bool isFlag;
+  const SamplePagePerson({Key? key, required this.name, required this.isFlag});
 
   @override
-  State<SamplePagePerson> createState() => _SamplePagePersonState(name);
+  State<SamplePagePerson> createState() => _SamplePagePersonState(name, isFlag);
 }
 
-List<Protocol> protocols = [
-  Protocol(name: 'José', protolSample: '25 anos', isSelected: true),
+List<Protocol> persons = [
+  Protocol(name: 'José', protolSample: '25 anos', isSelected: false),
   Protocol(name: 'João', protolSample: 'Alguma observação', isSelected: false),
   Protocol(name: 'Carlos ', protolSample: 'notes', isSelected: false),
   Protocol(name: 'Paulo ', protolSample: '----', isSelected: false),
@@ -32,12 +33,21 @@ List<Protocol> protocols = [
   Protocol(name: 'Daniel ', protolSample: '----', isSelected: false),
 ];
 
+List<Protocol> personsByProtocol = [
+  Protocol(name: 'José', protolSample: '25 anos', isSelected: true),
+  Protocol(name: 'João', protolSample: 'Alguma observação', isSelected: true),
+  Protocol(name: 'Carlos ', protolSample: 'notes', isSelected: true),
+  Protocol(name: 'Paulo ', protolSample: '----', isSelected: true),
+  Protocol(name: 'Luís ', protolSample: '-----', isSelected: true),
+];
+
 class _SamplePagePersonState extends State<SamplePagePerson> {
   final String name;
+  final bool isFlag;
   TextEditingController searchController = TextEditingController();
   String filter = "";
 
-  _SamplePagePersonState(this.name);
+  _SamplePagePersonState(this.name, this.isFlag);
 
   @override
   void initState() {
@@ -82,7 +92,7 @@ class _SamplePagePersonState extends State<SamplePagePerson> {
             ),
           ),
           Expanded(
-              child: protocols.isEmpty
+              child: persons.isEmpty
                   ? Center(
                       child: Column(
                       children: [
@@ -105,33 +115,34 @@ class _SamplePagePersonState extends State<SamplePagePerson> {
                       ],
                     ))
                   : ListView.builder(
-                      itemCount: protocols.length,
+                      itemCount:
+                          isFlag ? persons.length : personsByProtocol.length,
                       itemBuilder: (context, index) {
                         // if filter is null or empty returns all data
                         return filter == ""
                             ? ListTile(
                                 title: Text(
-                                  '${protocols[index].name}',
+                                  '${persons[index].name}',
                                 ),
                                 subtitle:
-                                    Text('${protocols[index].protolSample}'),
+                                    Text('${persons[index].protolSample}'),
                                 leading: CircleAvatar(
                                     backgroundColor: Colors.blue,
                                     child: Text(
-                                        '${protocols[index].name.substring(0, 1)}')),
+                                        '${persons[index].name.substring(0, 1)}')),
                                 trailing: TextButton(
-                                  child: protocols[index].isSelected == false
-                                      ? Text("Selecionar")
+                                  child: persons[index].isSelected == false
+                                      ? Text("Adicionar")
                                       : Text(
-                                          "Selecionado",
+                                          "Adicionado",
                                           style: TextStyle(color: Colors.black),
                                         ),
                                   onPressed: () {
-                                    c.setSampleName('${protocols[index].name}');
+                                    c.setSampleName('${persons[index].name}');
                                     setState(() {
-                                      protocols.forEach((element) {
+                                      persons.forEach((element) {
                                         if (element.name ==
-                                            protocols[index].name) {
+                                            persons[index].name) {
                                           if (element.isSelected == true) {
                                             element.isSelected = false;
                                           } else {
@@ -143,33 +154,32 @@ class _SamplePagePersonState extends State<SamplePagePerson> {
                                   },
                                 ),
                                 onTap: () =>
-                                    _onTapItem(context, protocols[index]),
+                                    _onTapItem(context, persons[index]),
                               )
-                            : '${protocols[index].name}'
+                            : '${persons[index].name}'
                                     .toLowerCase()
                                     .contains(filter.toLowerCase())
                                 ? ListTile(
                                     title: Text(
-                                      '${protocols[index].name}',
+                                      '${persons[index].name}',
                                     ),
-                                    subtitle: Text(
-                                        '${protocols[index].protolSample}'),
+                                    subtitle:
+                                        Text('${persons[index].protolSample}'),
                                     leading: CircleAvatar(
                                         backgroundColor: Colors.blue,
                                         child: Text(
-                                            '${protocols[index].name.substring(0, 1)}')),
+                                            '${persons[index].name.substring(0, 1)}')),
                                     trailing: TextButton(
-                                      child:
-                                          protocols[index].isSelected == false
-                                              ? Text("Selecionar")
-                                              : Text(
-                                                  "Selecionado",
-                                                  style: TextStyle(
-                                                      color: Colors.black),
-                                                ),
+                                      child: persons[index].isSelected == false
+                                          ? Text("Adicionar")
+                                          : Text(
+                                              "Adicionar",
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
                                       onPressed: () {
                                         c.setSampleName(
-                                            '${protocols[index].name}');
+                                            '${persons[index].name}');
                                         // setState(() {
                                         //   protocols.forEach((element) {
                                         //     if (element.name ==
@@ -183,7 +193,7 @@ class _SamplePagePersonState extends State<SamplePagePerson> {
                                       },
                                     ),
                                     onTap: () =>
-                                        _onTapItem(context, protocols[index]),
+                                        _onTapItem(context, persons[index]),
                                   )
                                 : Container();
                       },

@@ -19,6 +19,7 @@ Widget float1() {
       onPressed: () {
         Get.to(SamplePagePerson(
           name: "Adicionar amostras no estudo",
+          isFlag: true,
         ));
       },
       heroTag: "btn1",
@@ -33,11 +34,13 @@ Widget float2() {
     child: FloatingActionButton(
       onPressed: () {
         Get.to(ProtocolPage(
-            protocolName: "",
-            intensity: "Intensidade",
-            duration: "",
-            rampUp: "",
-            rampDown: ""));
+          protocolName: "",
+          intensity: "Intensidade",
+          duration: "",
+          rampUp: "",
+          rampDown: "",
+          btnRandom: false,
+        ));
       },
       heroTag: "btn2",
       tooltip: 'Criar novo protocolo',
@@ -243,11 +246,13 @@ void _onTapItem(BuildContext context, Protocol post) {
   // Scaffold.of(contextf).showSnackBar(
   //     new SnackBar(content: new Text("Tap on " + ' - ' + post.name)));
   Get.to(ProtocolPage(
-      protocolName: post.name,
-      intensity: "0.4 mA",
-      duration: "60",
-      rampUp: "30",
-      rampDown: "10"));
+    protocolName: post.name,
+    intensity: "0.4 mA",
+    duration: "60",
+    rampUp: "30",
+    rampDown: "10",
+    btnRandom: true,
+  ));
 }
 
 class Protocol {

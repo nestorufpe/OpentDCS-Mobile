@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:get/get.dart';
+import 'package:opentdcsapp/screens/samplepage_persons.dart';
 
 Widget SelectIntensity(BuildContext context, String intensity) {
   return DropdownSearch<String>(
@@ -23,15 +24,17 @@ class ProtocolPage extends StatelessWidget {
   final String duration;
   final String rampUp;
   final String rampDown;
+  final bool btnRandom;
 
-  const ProtocolPage(
-      {Key? key,
-      required this.protocolName,
-      required this.intensity,
-      required this.duration,
-      required this.rampUp,
-      required this.rampDown})
-      : super(key: key);
+  const ProtocolPage({
+    Key? key,
+    required this.protocolName,
+    required this.intensity,
+    required this.duration,
+    required this.rampUp,
+    required this.rampDown,
+    required this.btnRandom,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +49,9 @@ class ProtocolPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Novo protocolo'),
+        title: protocolNameCtlr.text == "Novo protocolo"
+            ? Text('Novo protocolo')
+            : Text(protocolNameCtlr.text),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,6 +98,22 @@ class ProtocolPage extends StatelessWidget {
                   labelText: 'Rampa de descida (segundos)',
                 ),
               )),
+          Visibility(
+            visible: btnRandom,
+            child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 55, vertical: 16),
+                child: Center(
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Get.to(SamplePagePerson(
+                        name: protocolNameCtlr.text,
+                        isFlag: true,
+                      ));
+                    },
+                    child: Text("VER AMOSTRAS ALOCADAS PARA ESSE PROTOCOLO"),
+                  ),
+                )),
+          ),
         ],
       ),
       bottomNavigationBar: Material(
