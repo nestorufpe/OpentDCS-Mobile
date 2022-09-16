@@ -19,7 +19,7 @@ Widget float1() {
       onPressed: () {
         Get.to(SamplePagePerson(
           name: "Adicionar amostras no estudo",
-          isFlag: true,
+          isFlag: false,
         ));
       },
       heroTag: "btn1",
