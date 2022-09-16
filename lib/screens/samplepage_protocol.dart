@@ -141,9 +141,11 @@ class _SamplePageProtocolState extends State<SamplePageProtocol> {
                         ),
                         ElevatedButton(
                             onPressed: () {
-                              Get.to(AddSample());
+                              Get.to(AddSample(
+                                sampleAppBar: "Adicionar novo protocolo",
+                              ));
                             },
-                            child: Text("\u{2795} Adicionar amostra"))
+                            child: Text("\u{2795} Adicionar novo protocolo"))
                       ],
                     ))
                   : ListView.builder(

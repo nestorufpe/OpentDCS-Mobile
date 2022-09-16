@@ -71,16 +71,9 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         title: Column(
           children: [
-            Obx(() => Text(c.nameSample.value)),
+            Text("OpentDCS"),
           ],
         ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Get.to(AddSample());
-              },
-              icon: Icon(Icons.add))
-        ],
       ),
       body: Container(
         decoration: BoxDecoration(color: Colors.white),

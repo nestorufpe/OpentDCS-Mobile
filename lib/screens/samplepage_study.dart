@@ -1,9 +1,8 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:animated_floating_buttons/widgets/animated_floating_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:opentdcsapp/controller/ctdcs.dart';
 import 'package:opentdcsapp/screens/addsamplepage.dart';
-import 'package:opentdcsapp/screens/profile.dart';
 import 'package:opentdcsapp/screens/samplepage_protocol.dart';
 
 final c = Get.put(ControllerTdcs.to);
@@ -13,6 +12,34 @@ class SamplePageStudy extends StatefulWidget {
 
   @override
   State<SamplePageStudy> createState() => _SamplePageStudyState();
+}
+
+Widget float1() {
+  return Container(
+    child: FloatingActionButton(
+      onPressed: () {
+        Get.to(AddSample(
+          sampleAppBar: "Adicionar nova amostra",
+        ));
+      },
+      heroTag: "btn1",
+      tooltip: 'Adicionar nova amostra',
+      child: Icon(Icons.person_add),
+    ),
+  );
+}
+
+Widget float2() {
+  return Container(
+    child: FloatingActionButton(
+      onPressed: () {
+        Get.to(AddSample(sampleAppBar: 'Criar novo estudo'));
+      },
+      heroTag: "btn2",
+      tooltip: 'Criar novo estudo',
+      child: Icon(Icons.add),
+    ),
+  );
 }
 
 List<Contact> contacts = [
@@ -106,9 +133,11 @@ class _SamplePageStudyState extends State<SamplePageStudy> {
                         ),
                         ElevatedButton(
                             onPressed: () {
-                              Get.to(AddSample());
+                              Get.to(AddSample(
+                                sampleAppBar: "Adicionar novo estudo",
+                              ));
                             },
-                            child: Text("\u{2795} Adicionar amostra"))
+                            child: Text("\u{2795} Adicionar novo estudo"))
                       ],
                     ))
                   : ListView.builder(
@@ -194,6 +223,15 @@ class _SamplePageStudyState extends State<SamplePageStudy> {
                     ))
         ],
       ),
+      floatingActionButton: AnimatedFloatingActionButton(
+          tooltip: "Opções",
+          //Fab list
+          fabButtons: <Widget>[float1(), float2()],
+          key: key,
+          colorStartAnimation: Colors.blue,
+          colorEndAnimation: Colors.red,
+          animatedIconData: AnimatedIcons.menu_close //To principal button
+          ),
     );
   }
 }

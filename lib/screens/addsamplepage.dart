@@ -3,10 +3,14 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 
 class AddSample extends StatelessWidget {
+  final String sampleAppBar;
+
+  const AddSample({required this.sampleAppBar});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Adicionar nova amostra")),
+      appBar: AppBar(title: Text(sampleAppBar)),
       body: Neumorphic(
         padding: EdgeInsets.all(8),
         margin: EdgeInsets.all(8),

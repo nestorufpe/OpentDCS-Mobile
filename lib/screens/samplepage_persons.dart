@@ -108,7 +108,7 @@ class _SamplePagePersonState extends State<SamplePagePerson> {
                           height: 150,
                         ),
                         Text(
-                          "Nenhum protocolo cadastrado",
+                          "Nenhuma amostra cadastrado",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
@@ -117,7 +117,9 @@ class _SamplePagePersonState extends State<SamplePagePerson> {
                         ),
                         ElevatedButton(
                             onPressed: () {
-                              Get.to(AddSample());
+                              Get.to(AddSample(
+                                sampleAppBar: "Adicionar nova amostra",
+                              ));
                             },
                             child: Text("\u{2795} Adicionar amostra"))
                       ],
