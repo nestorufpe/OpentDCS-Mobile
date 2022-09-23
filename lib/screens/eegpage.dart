@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
+import '../ui/neu_digital_clock.dart';
 import '../ui/widgets.dart';
 
 class EEGPage extends StatefulWidget {
@@ -29,6 +30,7 @@ class _EEGPageState extends State<EEGPage> {
     GridListItems(color: Colors.green, title: 'Ch6'),
     GridListItems(color: Colors.green, title: 'Ch7'),
     GridListItems(color: Colors.green, title: 'Ch8'),
+    GridListItems(color: Colors.white, title: '+'),
   ];
 
   Timer? _timer;
@@ -62,6 +64,14 @@ class _EEGPageState extends State<EEGPage> {
                       SizedBox(
                         height: 8,
                       ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.65,
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        child: NeuDigitalClock(),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.width * 0.1,
+                      ),
                       Text(
                         "Ajuste de Impedância",
                         textAlign: TextAlign.center,
@@ -70,40 +80,34 @@ class _EEGPageState extends State<EEGPage> {
                             fontSize: 24,
                             fontWeight: FontWeight.bold),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 45, vertical: 14),
-                        child: Text(
-                          "Ajuste o contato dos eletrodos com o escalpo para reduzir a resitência. Os canais em vermelho são os de impedância elevada.",
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(color: Colors.black54, fontSize: 12),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.circle,
-                        color: Colors.red,
-                      ),
-                      Text("Ruim"),
                       SizedBox(
-                        width: 14,
+                        height: 8,
                       ),
-                      Icon(
-                        Icons.circle,
-                        color: Colors.green,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.circle,
+                            color: Colors.red,
+                          ),
+                          Text("Ruim"),
+                          SizedBox(
+                            width: 14,
+                          ),
+                          Icon(
+                            Icons.circle,
+                            color: Colors.green,
+                          ),
+                          Text("Bom"),
+                        ],
                       ),
-                      Text("Bom"),
                     ],
                   ),
                 ],
               )),
           //GridView com os canais/loading/radar chart
           Expanded(
-            flex: 2,
+            flex: 1,
             child: GridView.count(
               crossAxisCount: 4,
               childAspectRatio: (2 / 1),
@@ -113,7 +117,9 @@ class _EEGPageState extends State<EEGPage> {
               children: items
                   .map(
                     (data) => GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          print(data.title);
+                        },
                         child: Neumorphic(
                           style: NeumorphicStyle(
                             color: data.color,
