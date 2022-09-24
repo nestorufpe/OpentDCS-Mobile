@@ -1,8 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:get/get.dart';
 
 import '../ui/neu_digital_clock.dart';
 import '../ui/widgets.dart';
@@ -162,8 +162,13 @@ class _EEGPageState extends State<EEGPage> {
                             GridListItems(color: Colors.green, title: "Ch5");
                       });
                     }),
-                    CircleBtnPlayEeg(context, _progress, _timer),
-                    CircleButtonStopEeg(context, () {})
+                    Obx(() => CircleBtnPlayEeg(context, () {
+                          c.isRecEeg.value = !c.isRecEeg.value;
+                          c.setIsRecEeg(c.isRecEeg.value);
+                        }, _progress, _timer, c.isRecEeg.value)),
+                    CircleButtonStopEeg(context, () {
+                      c.setIsRecEeg(false);
+                    })
                   ],
                 ),
               )),

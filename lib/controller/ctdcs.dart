@@ -18,6 +18,7 @@ class ControllerTdcs extends GetxController {
   var colorK = Colors.red.obs;
   var nameSample = "Criar novo estudo".obs;
   var cardsinfo = [].obs;
+  var isRecEeg = false.obs;
 
   static ControllerTdcs get to => Get.find<ControllerTdcs>();
 
@@ -80,5 +81,9 @@ class ControllerTdcs extends GetxController {
 
   setIsStop(bool b) {
     bisStop(b);
+  }
+
+  setIsRecEeg(bool b) {
+    isRecEeg(b);
   }
 }

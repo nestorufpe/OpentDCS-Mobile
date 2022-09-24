@@ -357,37 +357,11 @@ void playProgresEeg(double progress, Timer? timer, List<String>? text) async {
   });
 }
 
-Widget CircleBtnPlayEeg(BuildContext context, double progress, Timer? timer) {
+Widget CircleBtnPlayEeg(BuildContext context, Function()? function,
+    double progress, Timer? timer, bool isPlay) {
   return Center(
     child: NeumorphicButton(
-      onPressed: () async {
-        final text = await showTextInputDialog(
-          context: context,
-          cancelLabel: "CANCELAR",
-          okLabel: "GRAVAR",
-          textFields: [
-            DialogTextField(
-              hintText: 'Duração em minutos',
-              validator: (value) =>
-                  value!.isEmpty ? 'Digite o tempo para prosseguir' : null,
-              keyboardType: TextInputType.number,
-              suffixText: " min",
-            ),
-            DialogTextField(
-              hintText: 'Eletrodos',
-              keyboardType: TextInputType.text,
-            ),
-            DialogTextField(
-              hintText: 'Período (antes ou depois da tDCs)',
-              keyboardType: TextInputType.text,
-            ),
-          ],
-          title: 'Parâmetros para EEG',
-        );
-        if (text != null) {
-          playProgresEeg(progress, timer, text);
-        }
-      },
+      onPressed: function,
       style: NeumorphicStyle(
           shape: NeumorphicShape.flat,
           boxShape: NeumorphicBoxShape.circle(),
@@ -395,8 +369,8 @@ Widget CircleBtnPlayEeg(BuildContext context, double progress, Timer? timer) {
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Icon(
-          Icons.play_arrow,
-          color: Colors.black,
+          isPlay ? Icons.pause : Icons.circle,
+          color: isPlay ? Colors.black : Colors.red,
           size: 44,
         ),
       ),
