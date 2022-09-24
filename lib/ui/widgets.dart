@@ -158,6 +158,26 @@ Widget CircleButtonRts(BuildContext context, Function()? function) {
   );
 }
 
+Widget CircleButtonStopEeg(BuildContext context, Function()? function) {
+  return Center(
+    child: NeumorphicButton(
+      onPressed: function,
+      style: NeumorphicStyle(
+          shape: NeumorphicShape.flat,
+          boxShape: NeumorphicBoxShape.circle(),
+          color: Colors.white),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Icon(
+          MdiIcons.stop,
+          color: Colors.black,
+          size: 34,
+        ),
+      ),
+    ),
+  );
+}
+
 void playCurrent(double start_intensity, double stop_intensity) {
   late final PausableTimer timer;
   timer = PausableTimer(

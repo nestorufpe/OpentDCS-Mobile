@@ -108,39 +108,42 @@ class _EEGPageState extends State<EEGPage> {
           //GridView com os canais/loading/radar chart
           Expanded(
             flex: 1,
-            child: GridView.count(
-              crossAxisCount: 4,
-              childAspectRatio: (2 / 1),
-              crossAxisSpacing: 4,
-              mainAxisSpacing: 4,
-              padding: EdgeInsets.only(left: 8, top: 24, right: 8.0, bottom: 8),
-              children: items
-                  .map(
-                    (data) => GestureDetector(
-                        onTap: () {
-                          print(data.title);
-                        },
-                        child: Neumorphic(
-                          style: NeumorphicStyle(
-                            color: data.color,
-                            shape: NeumorphicShape.flat,
-                            boxShape: NeumorphicBoxShape.roundRect(
-                                BorderRadius.all(Radius.circular(24))),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(data.title,
-                                  style: TextStyle(
-                                      fontSize: 24,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center)
-                            ],
-                          ),
-                        )),
-                  )
-                  .toList(),
+            child: Scrollbar(
+              child: GridView.count(
+                crossAxisCount: 4,
+                childAspectRatio: (2 / 1),
+                crossAxisSpacing: 4,
+                mainAxisSpacing: 4,
+                padding:
+                    EdgeInsets.only(left: 8, top: 24, right: 8.0, bottom: 8),
+                children: items
+                    .map(
+                      (data) => GestureDetector(
+                          onTap: () {
+                            print(data.title);
+                          },
+                          child: Neumorphic(
+                            style: NeumorphicStyle(
+                              color: data.color,
+                              shape: NeumorphicShape.flat,
+                              boxShape: NeumorphicBoxShape.roundRect(
+                                  BorderRadius.all(Radius.circular(24))),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(data.title,
+                                    style: TextStyle(
+                                        fontSize: 24,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center)
+                              ],
+                            ),
+                          )),
+                    )
+                    .toList(),
+              ),
             ),
           ),
           //Config e Play
@@ -160,6 +163,7 @@ class _EEGPageState extends State<EEGPage> {
                       });
                     }),
                     CircleBtnPlayEeg(context, _progress, _timer),
+                    CircleButtonStopEeg(context, () {})
                   ],
                 ),
               )),
