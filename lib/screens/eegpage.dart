@@ -181,6 +181,14 @@ class _EEGPageState extends State<EEGPage> {
                                 keyboardType: TextInputType.number,
                                 suffixText: " min",
                               ),
+                              DialogTextField(
+                                hintText: 'Duração em segundos',
+                                validator: (value) => value!.isEmpty
+                                    ? 'Digite o tempo para prosseguir'
+                                    : null,
+                                keyboardType: TextInputType.number,
+                                suffixText: " seg",
+                              ),
                             ],
                             title: 'Tempo de gravação',
                           );
