@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -162,10 +163,31 @@ class _EEGPageState extends State<EEGPage> {
                             GridListItems(color: Colors.green, title: "Ch5");
                       });
                     }),
-                    Obx(() => CircleBtnPlayEeg(context, () {
+                    Obx(() => CircleBtnRecEeg(context, () async {
+                          //Atualiza icon do btn
                           c.isRecEeg.value = !c.isRecEeg.value;
                           c.setIsRecEeg(c.isRecEeg.value);
-                        }, _progress, _timer, c.isRecEeg.value)),
+                          //Show dialog para colocar o tempo
+                          final text = await showTextInputDialog(
+                            context: context,
+                            cancelLabel: "CANCELAR",
+                            okLabel: "GRAVAR",
+                            textFields: [
+                              DialogTextField(
+                                hintText: 'Duração em minutos',
+                                validator: (value) => value!.isEmpty
+                                    ? 'Digite o tempo para prosseguir'
+                                    : null,
+                                keyboardType: TextInputType.number,
+                                suffixText: " min",
+                              ),
+                            ],
+                            title: 'Tempo de gravação',
+                          );
+                          if (text != null) {
+                            // playProgresEeg(progress, timer, text);
+                          }
+                        })),
                     CircleButtonStopEeg(context, () {
                       c.setIsRecEeg(false);
                     })

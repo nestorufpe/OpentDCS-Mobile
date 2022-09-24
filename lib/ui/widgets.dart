@@ -357,8 +357,7 @@ void playProgresEeg(double progress, Timer? timer, List<String>? text) async {
   });
 }
 
-Widget CircleBtnPlayEeg(BuildContext context, Function()? function,
-    double progress, Timer? timer, bool isPlay) {
+Widget CircleBtnRecEeg(BuildContext context, Function()? function) {
   return Center(
     child: NeumorphicButton(
       onPressed: function,
@@ -369,8 +368,8 @@ Widget CircleBtnPlayEeg(BuildContext context, Function()? function,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Icon(
-          isPlay ? Icons.pause : Icons.circle,
-          color: isPlay ? Colors.black : Colors.red,
+          c.isRecEeg.value ? Icons.pause : Icons.circle,
+          color: c.isRecEeg.value ? Colors.black : Colors.red,
           size: 44,
         ),
       ),
