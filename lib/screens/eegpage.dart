@@ -167,6 +167,7 @@ class _EEGPageState extends State<EEGPage> {
                           //Atualiza icon do btn
                           c.isRecEeg.value = !c.isRecEeg.value;
                           c.setIsRecEeg(c.isRecEeg.value);
+                          c.setIsStopEeg(false);
                           //Show dialog para colocar o tempo
                           final text = await showTextInputDialog(
                             context: context,
@@ -194,10 +195,14 @@ class _EEGPageState extends State<EEGPage> {
                           );
                           if (text != null) {
                             // playProgresEeg(progress, timer, text);
+                            c.setTime(10);
+                            playTimeEeg(10, 0, context);
                           }
                         })),
                     CircleButtonStopEeg(context, () {
                       c.setIsRecEeg(false);
+                      c.setTime(0);
+                      c.setIsStopEeg(true);
                     })
                   ],
                 ),

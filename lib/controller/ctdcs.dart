@@ -19,6 +19,7 @@ class ControllerTdcs extends GetxController {
   var nameSample = "Criar novo estudo".obs;
   var cardsinfo = [].obs;
   var isRecEeg = false.obs;
+  var isStopEeg = false.obs;
 
   static ControllerTdcs get to => Get.find<ControllerTdcs>();
 
@@ -85,5 +86,9 @@ class ControllerTdcs extends GetxController {
 
   setIsRecEeg(bool b) {
     isRecEeg(b);
+  }
+
+  setIsStopEeg(bool b) {
+    isStopEeg(b);
   }
 }

@@ -205,6 +205,61 @@ void playCurrent(double start_intensity, double stop_intensity) {
   )..start();
 }
 
+void playTimeEeg(int start_tempo, int stop_time, BuildContext context) {
+  late final PausableTimer timer;
+  timer = PausableTimer(
+    Duration(seconds: 2),
+    () async {
+      start_tempo = start_tempo >= stop_time ? start_tempo -= 1 : start_tempo;
+
+      //atualiza
+      if (start_tempo >= stop_time) {
+        timer
+          ..reset()
+          ..start();
+      }
+      //stop
+      else {
+        // var dialog = await showOkCancelAlertDialog(
+        //     context: context,
+        //     title: 'SALVAR',
+        //     message: 'Deseja salvar a coleta?',
+        //     barrierDismissible: false,
+        //     okLabel: "SIM",
+        //     cancelLabel: "NÃO");
+        // if (dialog == OkCancelResult.ok) {
+        //   c.setEeg(
+        //     CardsProfile(
+        //       trial: "tDCS",
+        //       type: "Intensidade:  ",
+        //       typeValue: "2 mA",
+        //       time: "Tempo: ",
+        //       timeValue: "20 min",
+        //       shamElectrodes: "Modo placebo: ",
+        //       shamElectrodesValue: "B (ECA Parkison)",
+        //       textBtn: "Ver Placebo",
+        //     ),
+        //   );
+        // } else {
+        //   print("cancel");
+        // }
+      }
+
+      if (c.isRecEeg.value == false) {
+        timer.pause();
+      }
+
+      if (c.isStopEeg.value == true) {
+        timer.cancel();
+        c.setTime(0);
+      }
+      // This is really what your callback do.
+      print('\t$start_tempo');
+      c.setTime(start_tempo);
+    },
+  )..start();
+}
+
 void playTime(int start_tempo, int stop_time, BuildContext context) {
   late final PausableTimer timer;
   timer = PausableTimer(
