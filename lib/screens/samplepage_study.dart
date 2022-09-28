@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:opentdcsapp/controller/ctdcs.dart';
 import 'package:opentdcsapp/screens/addsamplepage.dart';
+import 'package:opentdcsapp/screens/profile.dart';
 import 'package:opentdcsapp/screens/samplepage_protocol.dart';
 
 final c = Get.put(ControllerTdcs.to);
@@ -14,72 +15,150 @@ class SamplePageStudy extends StatefulWidget {
   State<SamplePageStudy> createState() => _SamplePageStudyState();
 }
 
-Widget float1() {
-  return Container(
-    child: FloatingActionButton(
-      onPressed: () {
-        Get.to(AddSample(
-          sampleAppBar: "Adicionar nova amostra",
-        ));
-      },
-      heroTag: "btn1",
-      tooltip: 'Adicionar nova amostra',
-      child: Icon(Icons.person_add),
-    ),
-  );
-}
-
-Widget float2() {
-  return Container(
-    child: FloatingActionButton(
-      onPressed: () {
-        Get.to(AddSample(sampleAppBar: 'Criar novo estudo'));
-      },
-      heroTag: "btn2",
-      tooltip: 'Criar novo estudo',
-      child: Icon(Icons.add),
-    ),
-  );
-}
-
-List<Contact> contacts = [
+List<Contact> studies = [
   Contact(
       name: 'Parkison',
-      protolSample: 'Amostra: 60; Protocolso: 3',
+      protolSample: 'Amostra: 60; Protocolo: 3',
       isSelected: true),
   Contact(
       name: 'Fibromialgia',
-      protolSample: 'Amostra: 30; Protocolso: 2',
+      protolSample: 'Amostra: 30; Protocolo: 2',
       isSelected: false),
   Contact(
       name: 'AVE ',
-      protolSample: 'Amostra: 25; Protocolso: 5',
+      protolSample: 'Amostra: 25; Protocolo: 5',
       isSelected: false),
   Contact(
       name: 'Depressão ',
-      protolSample: 'Amostra: 15; Protocolso: 4',
+      protolSample: 'Amostra: 15; Protocolo: 4',
       isSelected: false),
   Contact(
       name: 'Estudo 1',
-      protolSample: 'Amostra: 10; Protocolso: 2',
+      protolSample: 'Amostra: 10; Protocolo: 2',
       isSelected: false),
   Contact(
       name: 'Estudo 2',
-      protolSample: 'Amostra: 50; Protocolso: 2',
+      protolSample: 'Amostra: 50; Protocolo: 2',
       isSelected: false),
   Contact(
       name: 'Estudo 3',
-      protolSample: 'Amostra: 35; Protocolso: 2',
+      protolSample: 'Amostra: 35; Protocolo: 2',
       isSelected: false),
   Contact(
       name: 'Estudo 4',
-      protolSample: 'Amostra: 40; Protocolso: 4',
+      protolSample: 'Amostra: 40; Protocolo: 4',
       isSelected: false),
+];
+
+List<Contact> studiesview = [
+  Contact(
+      name: 'Parkison',
+      protolSample: 'Amostra: 60; Protocolo: 3',
+      isSelected: true),
+  Contact(
+      name: 'Fibromialgia',
+      protolSample: 'Amostra: 30; Protocolo: 2',
+      isSelected: false),
+  Contact(
+      name: 'AVE ',
+      protolSample: 'Amostra: 25; Protocolo: 5',
+      isSelected: false),
+  Contact(
+      name: 'Depressão ',
+      protolSample: 'Amostra: 15; Protocolo: 4',
+      isSelected: false),
+  Contact(
+      name: 'Estudo 1',
+      protolSample: 'Amostra: 10; Protocolo: 2',
+      isSelected: false),
+  Contact(
+      name: 'Estudo 2',
+      protolSample: 'Amostra: 50; Protocolo: 2',
+      isSelected: false),
+  Contact(
+      name: 'Estudo 3',
+      protolSample: 'Amostra: 35; Protocolo: 2',
+      isSelected: false),
+  Contact(
+      name: 'Estudo 4',
+      protolSample: 'Amostra: 40; Protocolo: 4',
+      isSelected: false),
+];
+
+List<Contact> samples = [
+  Contact(name: 'José', protolSample: '25 anos', isSelected: false),
+  Contact(name: 'João', protolSample: 'Alguma observação', isSelected: false),
+  Contact(name: 'Carlos ', protolSample: 'notes', isSelected: false),
+  Contact(name: 'Paulo ', protolSample: '----', isSelected: false),
+  Contact(name: 'Luís ', protolSample: '-----', isSelected: false),
+  Contact(name: 'Pedro ', protolSample: '----', isSelected: false),
+  Contact(name: 'Marcos ', protolSample: '----', isSelected: false),
+  Contact(name: 'Rafael ', protolSample: '-----', isSelected: false),
+  Contact(name: 'Daniel ', protolSample: '----', isSelected: false),
 ];
 
 class _SamplePageStudyState extends State<SamplePageStudy> {
   TextEditingController searchController = TextEditingController();
   String filter = "";
+
+  Widget float1() {
+    return Container(
+      child: FloatingActionButton(
+        onPressed: () {
+          Get.to(AddSample(
+            sampleAppBar: "Adicionar nova amostra",
+          ));
+        },
+        heroTag: "btn1",
+        tooltip: 'Adicionar nova amostra',
+        child: Icon(Icons.person_add),
+      ),
+    );
+  }
+
+  Widget float2() {
+    return Container(
+      child: FloatingActionButton(
+        onPressed: () {
+          Get.to(AddSample(sampleAppBar: 'Criar novo estudo'));
+        },
+        heroTag: "btn2",
+        tooltip: 'Criar novo estudo',
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+
+  Widget float3() {
+    return Container(
+      child: FloatingActionButton(
+        onPressed: () {
+          // Get.to(AddSample(sampleAppBar: 'Amostras'));
+          setState(() {
+            studies = samples;
+          });
+        },
+        heroTag: "btn3",
+        tooltip: 'Vizualizar amostra',
+        child: Icon(Icons.person_search),
+      ),
+    );
+  }
+
+  Widget float4() {
+    return Container(
+      child: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            studies = studiesview;
+          });
+        },
+        heroTag: "btn4",
+        tooltip: 'Vizualizar estudos',
+        child: Icon(Icons.school),
+      ),
+    );
+  }
 
   @override
   void initState() {
@@ -116,7 +195,7 @@ class _SamplePageStudyState extends State<SamplePageStudy> {
             ),
           ),
           Expanded(
-              child: contacts.isEmpty
+              child: studies.isEmpty
                   ? Center(
                       child: Column(
                       children: [
@@ -141,20 +220,20 @@ class _SamplePageStudyState extends State<SamplePageStudy> {
                       ],
                     ))
                   : ListView.builder(
-                      itemCount: contacts.length,
+                      itemCount: studies.length,
                       itemBuilder: (context, index) {
                         // if filter is null or empty returns all data
                         return filter == ""
                             ? ListTile(
                                 title: Text(
-                                  '${contacts[index].name}',
+                                  '${studies[index].name}',
                                 ),
                                 subtitle:
-                                    Text('${contacts[index].protolSample}'),
+                                    Text('${studies[index].protolSample}'),
                                 leading: CircleAvatar(
                                     backgroundColor: Colors.blue,
                                     child: Text(
-                                        '${contacts[index].name.substring(0, 1)}')),
+                                        '${studies[index].name.substring(0, 1)}')),
                                 // trailing: TextButton(
                                 //   child: contacts[index].isSelected == false
                                 //       ? Text("Selecionar")
@@ -177,21 +256,21 @@ class _SamplePageStudyState extends State<SamplePageStudy> {
                                 //   },
                                 // ),
                                 onTap: () =>
-                                    _onTapItem(context, contacts[index]),
+                                    _onTapItem(context, studies[index]),
                               )
-                            : '${contacts[index].name}'
+                            : '${studies[index].name}'
                                     .toLowerCase()
                                     .contains(filter.toLowerCase())
                                 ? ListTile(
                                     title: Text(
-                                      '${contacts[index].name}',
+                                      '${studies[index].name}',
                                     ),
                                     subtitle:
-                                        Text('${contacts[index].protolSample}'),
+                                        Text('${studies[index].protolSample}'),
                                     leading: CircleAvatar(
                                         backgroundColor: Colors.blue,
                                         child: Text(
-                                            '${contacts[index].name.substring(0, 1)}')),
+                                            '${studies[index].name.substring(0, 1)}')),
                                     // trailing: TextButton(
                                     //   child: contacts[index].isSelected == false
                                     //       ? Text("Selecionar")
@@ -216,7 +295,7 @@ class _SamplePageStudyState extends State<SamplePageStudy> {
                                     //   },
                                     // ),
                                     onTap: () =>
-                                        _onTapItem(context, contacts[index]),
+                                        _onTapItem(context, studies[index]),
                                   )
                                 : Container();
                       },
@@ -226,7 +305,7 @@ class _SamplePageStudyState extends State<SamplePageStudy> {
       floatingActionButton: AnimatedFloatingActionButton(
           tooltip: "Opções",
           //Fab list
-          fabButtons: <Widget>[float1(), float2()],
+          fabButtons: <Widget>[float1(), float2(), float3(), float4()],
           key: key,
           colorStartAnimation: Colors.blue,
           colorEndAnimation: Colors.red,
@@ -239,9 +318,14 @@ class _SamplePageStudyState extends State<SamplePageStudy> {
 void _onTapItem(BuildContext context, Contact post) {
   // Scaffold.of(context).showSnackBar(
   //     new SnackBar(content: new Text("Tap on " + ' - ' + post.name)));
-  Get.to(SamplePageProtocol(
-    name: post.name,
-  ));
+
+  if (studies == samples) {
+    Get.to(ProfileSample(name: post.name));
+  } else {
+    Get.to(SamplePageProtocol(
+      name: post.name,
+    ));
+  }
 }
 
 class Contact {
