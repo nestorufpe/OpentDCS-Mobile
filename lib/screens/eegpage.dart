@@ -120,13 +120,21 @@ class _EEGPageState extends State<EEGPage> {
                 children: items
                     .map(
                       (data) => GestureDetector(
-                          onDoubleTap: () {
+                          onDoubleTap: () async {
                             var idx = items.indexWhere((element) =>
                                 element.title.startsWith(data.title));
-
+                            var dialog = await showOkCancelAlertDialog(
+                                context: context,
+                                title: 'EXCLUIR',
+                                message: 'Deseja excluir eletrodo?',
+                                barrierDismissible: false,
+                                okLabel: "SIM",
+                                cancelLabel: "NÃO");
                             setState(() {
                               if (data.title != "+") {
-                                items.removeAt(idx);
+                                if (dialog == OkCancelResult.ok) {
+                                  items.removeAt(idx);
+                                }
                               }
                             });
                           },
