@@ -196,7 +196,7 @@ class _EEGPageState extends State<EEGPage> {
                           if (text != null) {
                             // playProgresEeg(progress, timer, text);
                             c.setTime(10);
-                            playTimeEeg(10, 0, context);
+                            playTimeEeg(10, 1, context);
                           }
                         })),
                     CircleButtonStopEeg(context, () {

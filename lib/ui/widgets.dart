@@ -220,29 +220,18 @@ void playTimeEeg(int start_tempo, int stop_time, BuildContext context) {
       }
       //stop
       else {
-        // var dialog = await showOkCancelAlertDialog(
-        //     context: context,
-        //     title: 'SALVAR',
-        //     message: 'Deseja salvar a coleta?',
-        //     barrierDismissible: false,
-        //     okLabel: "SIM",
-        //     cancelLabel: "NÃO");
-        // if (dialog == OkCancelResult.ok) {
-        //   c.setEeg(
-        //     CardsProfile(
-        //       trial: "tDCS",
-        //       type: "Intensidade:  ",
-        //       typeValue: "2 mA",
-        //       time: "Tempo: ",
-        //       timeValue: "20 min",
-        //       shamElectrodes: "Modo placebo: ",
-        //       shamElectrodesValue: "B (ECA Parkison)",
-        //       textBtn: "Ver Placebo",
-        //     ),
-        //   );
-        // } else {
-        //   print("cancel");
-        // }
+        var dialog = await showOkCancelAlertDialog(
+            context: context,
+            title: 'SALVAR',
+            message: 'Deseja salvar dados de EEG?',
+            barrierDismissible: false,
+            okLabel: "SIM",
+            cancelLabel: "NÃO");
+        if (dialog == OkCancelResult.ok) {
+          playProgresEeg(100.0, timer, null);
+        } else {
+          print("cancel");
+        }
       }
 
       if (c.isRecEeg.value == false) {
@@ -405,9 +394,11 @@ void playProgresEeg(double progress, Timer? timer, List<String>? text) async {
       timer?.cancel();
       EasyLoading.dismiss();
       text == "0";
-      Get.to(EegResults(
-        visible: true,
-      ));
+      // Get.to(EegResults(
+      //   visible: true,
+      // )
+      // );
+      EasyLoading.showSuccess("Dados salvos");
     }
   });
 }
