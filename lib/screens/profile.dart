@@ -17,7 +17,17 @@ class ProfileSample extends StatefulWidget {
 class _ProfileSampleState extends State<ProfileSample> {
   List<String> data = ["1", "2", "3", "4"];
   final String name;
-  List<CardsProfile> cardsInfo = [];
+  List<CardsProfile> cardsInfo = [
+    CardsProfile(
+        shamElectrodes: "1",
+        textBtn: "2",
+        shamElectrodesValue: "3",
+        timeValue: "4",
+        trial: "5",
+        time: "6",
+        type: "7",
+        typeValue: "8")
+  ];
 
   _ProfileSampleState(this.name);
   final c = Get.find<ControllerTdcs>();
@@ -73,16 +83,20 @@ class _ProfileSampleState extends State<ProfileSample> {
             SizedBox(
               height: 9,
             ),
-            Obx(() => SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.6,
-                  child: c.cardsinfo.value.isEmpty
-                      ? Text("Nenhuma coleta feita ainda")
-                      : ListView.builder(
-                          itemCount: c.cardsinfo.length,
-                          itemBuilder: (context, index) {
-                            return c.cardsinfo[index];
-                          }),
-                ))
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.6,
+              // child: c.cardsinfo.value.isEmpty
+              child: cardsInfo.isEmpty
+                  ? Text(
+                      "Nenhuma coleta feita ainda",
+                      style: TextStyle(fontSize: 24),
+                    )
+                  : ListView.builder(
+                      itemCount: cardsInfo.length,
+                      itemBuilder: (context, index) {
+                        return cardsInfo[index];
+                      }),
+            )
           ],
         ),
       ),
