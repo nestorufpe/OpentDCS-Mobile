@@ -120,8 +120,62 @@ class _EEGPageState extends State<EEGPage> {
                 children: items
                     .map(
                       (data) => GestureDetector(
-                          onTap: () {
+                          onDoubleTap: () {
+                            var idx = items.indexWhere((element) =>
+                                element.title.startsWith(data.title));
+
+                            setState(() {
+                              if (data.title != "+") {
+                                items.removeAt(idx);
+                              }
+                            });
+                          },
+                          onTap: () async {
                             print(data.title);
+                            var electrodeName =
+                                data.title == "+" ? null : data.title;
+                            final text = await showTextInputDialog(
+                              context: context,
+                              cancelLabel: "CANCELAR",
+                              okLabel:
+                                  electrodeName == null ? "CRIAR" : "ATUALIZAR",
+                              textFields: [
+                                DialogTextField(
+                                  initialText: electrodeName,
+                                  hintText: 'Nome do eletrodo',
+                                  validator: (value) => value!.isEmpty
+                                      ? 'Digite o nome do eletrodo'
+                                      : null,
+                                ),
+                                DialogTextField(
+                                  hintText: 'Tolerância',
+                                  validator: (value) => value!.isEmpty
+                                      ? 'Digite o valor de impedância'
+                                      : null,
+                                  keyboardType: TextInputType.number,
+                                  suffixText: " kΩ",
+                                ),
+                                DialogTextField(
+                                  hintText: 'Canal',
+                                  validator: (value) => value!.isEmpty
+                                      ? 'Digite o valor do canal'
+                                      : null,
+                                  keyboardType: TextInputType.number,
+                                ),
+                              ],
+                              title: 'Criar/editar eletrodo',
+                            );
+
+                            if (text != null) {
+                              print(text);
+                              setState(() {
+                                items.removeLast();
+                                items.add(GridListItems(
+                                    color: Colors.green, title: text[0]));
+                                items.add(GridListItems(
+                                    color: Colors.white, title: "+"));
+                              });
+                            }
                           },
                           child: Neumorphic(
                             style: NeumorphicStyle(
@@ -194,7 +248,6 @@ class _EEGPageState extends State<EEGPage> {
                             title: 'Tempo de gravação',
                           );
                           if (text != null) {
-                            // playProgresEeg(progress, timer, text);
                             c.setTime(10);
                             playTimeEeg(10, 1, context);
                           }
