@@ -19,14 +19,23 @@ class _ProfileSampleState extends State<ProfileSample> {
   final String name;
   List<CardsProfile> cardsInfo = [
     CardsProfile(
-        shamElectrodes: "1",
-        textBtn: "2",
-        shamElectrodesValue: "3",
-        timeValue: "4",
-        trial: "5",
-        time: "6",
-        type: "7",
-        typeValue: "8")
+        shamElectrodes: "Seção: ",
+        textBtn: "Ver protocolo",
+        shamElectrodesValue: "1",
+        timeValue: "Ana",
+        trial: "tDCS",
+        time: "Avaliador: ",
+        type: "Estudo: ",
+        typeValue: "ECA Parkison"),
+    CardsProfile(
+        shamElectrodes: "Seção: ",
+        textBtn: "Baixar arquivo",
+        shamElectrodesValue: "1",
+        timeValue: "Maria",
+        trial: "EEG",
+        time: "Avaliador: ",
+        type: "Estudo: ",
+        typeValue: "ECA Parkison")
   ];
 
   _ProfileSampleState(this.name);
@@ -58,9 +67,12 @@ class _ProfileSampleState extends State<ProfileSample> {
               name,
               style: TextStyle(fontSize: 24),
             ),
-            Text(
-              "ECA Parkison",
-              style: TextStyle(fontSize: 14),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                "Observações sobre a amostra. Idade, altura, links de questionários aplicados",
+                style: TextStyle(fontSize: 17),
+              ),
             ),
             SizedBox(
               height: 18,
@@ -215,19 +227,35 @@ class CardsProfile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     OutlinedButton(
-                      onPressed: () async {
-                        if (trial == "tDCS") {
-                          final result = await showOkAlertDialog(
-                            context: context,
-                            title: "Modo Placebo",
-                            message: "A: Sham\nB: Ativo",
-                          );
-                        } else {
-                          Get.to(EegResults(
-                            visible: false,
-                          ));
-                        }
-                      },
+                      onPressed: () => showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                                title: Text('Vizualizar protocolo'),
+                                content: Text(
+                                    "A visualização do protocolo cancela o cegameto do estudo. Tem certeza que deseja prosseguir ?"),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'Cancelar'),
+                                      child: Text("Cancelar")),
+                                  TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'Sim'),
+                                      child: Text("Sim")),
+                                ],
+                              ))
+                      // if (trial == "tDCS") {
+                      //   final result = await showOkAlertDialog(
+                      //     context: context,
+                      //     title: "Modo Placebo",
+                      //     message: "A: Sham\nB: Ativo",
+                      //   );
+                      // } else {
+                      //   Get.to(EegResults(
+                      //     visible: false,
+                      //   ));
+                      // }
+                      ,
                       child: Text(textBtn),
                     ),
                     TextButton(
