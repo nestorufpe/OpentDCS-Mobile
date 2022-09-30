@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:opentdcsapp/controller/ctdcs.dart';
 import 'package:opentdcsapp/screens/eegresults.dart';
+import 'package:opentdcsapp/screens/protocol_create_edit.dart';
 
 class ProfileSample extends StatefulWidget {
   final String name;
@@ -239,8 +240,16 @@ class CardsProfile extends StatelessWidget {
                                           Navigator.pop(context, 'Cancelar'),
                                       child: Text("Cancelar")),
                                   TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(context, 'Sim'),
+                                      onPressed: () {
+                                        Navigator.pop(context, 'Sim');
+                                        Get.to(ProtocolPage(
+                                            protocolName: "Placebo",
+                                            intensity: "Placebo (desligado)",
+                                            duration: "0",
+                                            rampUp: "0",
+                                            rampDown: "0",
+                                            btnRandom: false));
+                                      },
                                       child: Text("Sim")),
                                 ],
                               ))
