@@ -102,15 +102,30 @@ Widget CircleButtonConfig(BuildContext context) {
                                         MaterialStateProperty.all<Color>(
                                             Colors.blue),
                                   ),
-                                  onPressed: () {
+                                  onPressed: () async {
                                     Navigator.of(context).pop();
-                                    c.setCurrent("0.4mA");
-                                    c.setCurrentReal(0.0);
-                                    c.setTime(10);
-                                    c.setMode("m");
-                                    c.setSham("s");
+                                    final text = await showTextInputDialog(
+                                        context: context,
+                                        title: 'Nome do Avaliador',
+                                        cancelLabel: "CANCELAR",
+                                        okLabel: "CONCLUIR",
+                                        textFields: [
+                                          DialogTextField(
+                                            hintText: 'Nome do avaliador',
+                                            validator: (value) => value!.isEmpty
+                                                ? 'Digite o nome para prosseguir'
+                                                : null,
+                                          ),
+                                        ]);
+                                    if (text != null) {
+                                      c.setCurrent("0.4mA");
+                                      c.setCurrentReal(0.0);
+                                      c.setTime(10);
+                                      c.setMode("m");
+                                      c.setSham("s");
+                                    }
                                   },
-                                  child: Text('CONCLUIR'),
+                                  child: Text('AVANÇAR'),
                                 ),
                               ],
                             );

@@ -237,6 +237,12 @@ class _EEGPageState extends State<EEGPage> {
                             okLabel: "GRAVAR",
                             textFields: [
                               DialogTextField(
+                                hintText: 'Nome do avaliador',
+                                validator: (value) => value!.isEmpty
+                                    ? 'Digite o nome para prosseguir'
+                                    : null,
+                              ),
+                              DialogTextField(
                                 hintText: 'Duração em minutos',
                                 validator: (value) => value!.isEmpty
                                     ? 'Digite o tempo para prosseguir'
