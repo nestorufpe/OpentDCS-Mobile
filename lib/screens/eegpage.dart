@@ -156,6 +156,12 @@ class _EEGPageState extends State<EEGPage> {
                                       : null,
                                 ),
                                 DialogTextField(
+                                  hintText: 'Área/região cerebral',
+                                  validator: (value) => value!.isEmpty
+                                      ? 'Digite o nome da Área/região cerebral do eletrodo para prosseguir'
+                                      : null,
+                                ),
+                                DialogTextField(
                                   hintText: 'Tolerância',
                                   validator: (value) => value!.isEmpty
                                       ? 'Digite o valor de impedância'
