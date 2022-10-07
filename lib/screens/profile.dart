@@ -20,7 +20,7 @@ class _ProfileSampleState extends State<ProfileSample> {
   final String name;
   List<CardsProfile> cardsInfo = [
     CardsProfile(
-        shamElectrodes: "Seção: ",
+        shamElectrodes: "Sessão: ",
         textBtn: "Ver protocolo",
         shamElectrodesValue: "1",
         timeValue: "Ana",
@@ -29,7 +29,7 @@ class _ProfileSampleState extends State<ProfileSample> {
         type: "Estudo: ",
         typeValue: "ECA Parkison"),
     CardsProfile(
-        shamElectrodes: "Seção: ",
+        shamElectrodes: "Sessão: ",
         textBtn: "Baixar arquivo",
         shamElectrodesValue: "1",
         timeValue: "Maria",
