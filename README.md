@@ -13,4 +13,9 @@ App controlador do protótipo OpentDCs.
 - 7) Na tela das amostras, selecione o indivíduo Pedro e verifique como foi aleatorizado o placebo pelo app ok
 - 8) Ainda na mesma tela, verifique o grafico resultante da avaliação do EEG. ok
 
+## Notes do feedback
+
+- Funcionalidade de inserir atividade de potencial evocado (estimulo  visual, auditivo e tátil) e realizar a marcação no EEG
+- Randomização estratificada (Fazer condicional de distribuição de acordo com a condição clinica da amostra) (Exemplo: randomization.com)
+
 
