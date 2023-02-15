@@ -1,6 +1,6 @@
 # opentdcsapp
 
-App controlador do protótipo OpentDCs.
+Fron-end do App controlador do protótipo OpentDCs.
 
 ## Tarefas para o teste de usabilidade
 
